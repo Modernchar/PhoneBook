@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#3bcebf"
+    android:gravity="center"
+    android:paddingTop="20dp">
+
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:background="@drawable/btnwithoutstyle"
+            android:id="@+id/MyInfo_Btn"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center_horizontal"
+            android:text="我的"/>
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:background="@drawable/btnwithoutstyle"
+            android:id="@+id/CallRecord_Btn"
+            android:textColor="#FFFFFF"
+            android:text="通话"/>
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:background="@drawable/btnwithoutstyle"
+            android:id="@+id/Contacts_Btn"
+            android:textColor="#FFFFFF"
+            android:text="联系人"/>
+
+</LinearLayout>
