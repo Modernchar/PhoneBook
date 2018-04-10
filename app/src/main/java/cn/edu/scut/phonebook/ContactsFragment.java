@@ -2,6 +2,8 @@ package cn.edu.scut.phonebook;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Paint;
+import android.icu.util.Measure;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -92,4 +94,5 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
             }
         }, 200);
     }
+
 }

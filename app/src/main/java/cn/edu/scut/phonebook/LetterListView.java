@@ -1,4 +1,7 @@
 package cn.edu.scut.phonebook;
+/*
+ * 自定义的通讯录字母侧滑功能
+ */
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -19,17 +22,17 @@ public class LetterListView extends View {
     private int currentLetter = -1;//当前位置
     public static String[] LetterList = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
             "U", "V", "W", "X", "Y", "Z", "#"};//所有字母
-    boolean showBackground = false;
     private Paint paint = new Paint();//字画笔
     private Paint circlePaint = new Paint();//圆画笔
     private int currentChooseLetterIndex = -1;
 
-    private OnTouchListener onTouchListener;
     private LetterListViewListener letterListViewListener;
 
     private float SpaceWidth; //尾部留白距离
     private float singleHeight;
 
+    private float ViewHeight;
+    private float ViewWidth;
     private TextView TextTip;
 
 
@@ -38,12 +41,10 @@ public class LetterListView extends View {
         super(context, attrs, defStyle);
         init();
     }
-
     public LetterListView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
-
     public LetterListView(Context context) {
         super(context);
         init();
@@ -52,7 +53,6 @@ public class LetterListView extends View {
     private void init() {
         circlePaint.setColor(Color.parseColor("#DDDDDD"));
 
-        //TextTip = findViewById(R.id.TextTipView);
         if(TextTip!=null)
         {
             TextTip.setText("I'm Here!");
@@ -68,31 +68,28 @@ public class LetterListView extends View {
 
         Log.i("onDraw", "onDraw");
 
-        if (showBackground) {
-            canvas.drawColor(Color.parseColor("#CC0000"));
-        }
+        ViewHeight = getHeight();// 获取组件高度
+        ViewWidth = getWidth(); // 获取组件宽度
 
-
-        int height = getHeight();// 获取组件高度
-        int width = getWidth(); // 获取组件宽度
-
-        SpaceWidth = height / 8f ;
-        singleHeight = (height * 1f - SpaceWidth) / LetterList.length; //获取单字最大高度
+        SpaceWidth = ViewHeight / 8f ;
+        singleHeight = (ViewHeight * 1f - SpaceWidth) / LetterList.length; //获取单字最大高度
 
         for (int i = 0; i < LetterList.length; i++) {
+
+            //设置画笔属性
             paint.setColor(Color.rgb(23, 122, 0));
             paint.setTypeface(Typeface.DEFAULT);//设置字体样式
             paint.setAntiAlias(true);//抗锯齿
             paint.setTextSize(30);
 
-            float xPos = width / 2 - paint.measureText(LetterList[i]) / 2;
+            float xPos = ViewWidth / 2 - paint.measureText(LetterList[i]) / 2;
             float yPos = singleHeight * (i+1);
 
-            float xCircle = width/2;
+            float xCircle = ViewWidth / 2;
             float yCircle = singleHeight * (i+1) - paint.measureText(LetterList[i])/2;
             // 选中的状态
             if (i == currentLetter) {
-                canvas.drawCircle(xCircle,yCircle,30,circlePaint);
+                //canvas.drawCircle(xCircle,yCircle,30,circlePaint);  //用来画当前字母的背景
                 paint.setColor(Color.parseColor("#c60000")); //选中的字体为红色
                 paint.setFakeBoldText(true); //字体加粗
             }
@@ -102,71 +99,7 @@ public class LetterListView extends View {
             canvas.drawText(LetterList[i], xPos, yPos, paint);
             paint.reset();// 重置画笔
         }
-
     }
-
-    //   @Override
-//    public boolean dispatchTouchEvent(MotionEvent event) {
-//        final int action = event.getAction();
-//        final float y = event.getY();// 点击y坐标
-//        final int oldChoose = currentLetter;
-//        //final OnTouchListener listener;
-//
-//        final int chooseLetterIndex = (int) (y / getHeight() * LetterList.length);// 点击y坐标所占总高度的比例*b数组的长度就等于点击b中的个数.
-//
-//        switch (action) {
-//            case MotionEvent.ACTION_UP:
-//                //setBackgroundDrawable(new ColorDrawable(0x00000000));
-//                currentLetter = -1;//
-//                invalidate();//重绘
-//                if (TextTip != null) {
-//                    TextTip.setVisibility(View.INVISIBLE);
-//                }
-//                break;
-//            // 除开松开事件的任何触摸事件
-//            default:
-//                //setBackgroundResource(R.drawable.sidebar_background);
-//
-//                //Log.i("TextTip","otherMotionEvent");
-//                if (oldChoose != chooseLetterIndex) {
-//                    if (chooseLetterIndex >= 0 && chooseLetterIndex < LetterList.length) {
-//
-//                        Log.i("MotionEvent","now:"+LetterList[chooseLetterIndex]);
-//                        if (TextTip != null) {
-//                            TextTip.setText(LetterList[chooseLetterIndex]);
-//                            TextTip.setVisibility(View.VISIBLE);
-//                            // 动态改变文字dialog的位置
-//                            //int right = TextTip.getLeft();
-//                            //TextTip.setX(right / 2 * 3);
-//                            /*
-//                            if (chooseLetterIndex > 24) {
-//                                TextTip.setY(singleHeight * 24);
-//                            } else {
-//                                TextTip.setY(singleHeight * chooseLetterIndex);
-//                            }
-//                            */
-//                            //变色
-//                            //TextTip.setBackground(getContext().getResources().getDrawable(dialogColor[c / 6]));
-//                        }
-//
-//                        currentLetter = chooseLetterIndex;
-//                        invalidate();//重绘
-//                    }
-//                }
-//
-//                break;
-//        }
-//        return true;
-//    }
-
-
-    /**
-     * 向外公开的方法
-     *
-     * @param //onTouchingLetterChangedListener public void setOnTouchingLetterChangedListener(OnTouchingLetterChangedListener onTouchingLetterChangedListener) {
-     *                                          this.onTouchingLetterChangedListener = onTouchingLetterChangedListener;
-     *                                          }
-     */
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -174,15 +107,18 @@ public class LetterListView extends View {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE: {
                 Log.i("onTouchEvent","Action:"+event.getAction());
-                float y = getY();//获取Y坐标
-
-                final int chooseLetterIndex = (int) (y / (getHeight() - SpaceWidth) * LetterList.length);
+                float y = event.getY();//获取Y坐标
+                Log.i("onTouchEvent","y:"+y);
+                Log.i("onTouchEvent","ViewHeight:"+ViewHeight);
+                final int chooseLetterIndex = (int) (y / (ViewHeight - SpaceWidth) * LetterList.length);
+                Log.i("onTouchEvent","(AFTER caLCULATION)chooseLetterIndex:"+chooseLetterIndex);
 
                 if (chooseLetterIndex != currentLetter) {
                     currentLetter = chooseLetterIndex;
                 }
 
-                if (letterListViewListener != null && 0 <= currentLetter && currentLetter < LetterList.length) {
+                if (letterListViewListener != null && 0 <= chooseLetterIndex && chooseLetterIndex < LetterList.length) {
+                    Log.i("onTouchEvent","chooseLetterIndex:"+chooseLetterIndex);
                     letterListViewListener.wordChange(LetterList[chooseLetterIndex]);
                 }
                 invalidate();//重绘

@@ -16,7 +16,6 @@
             android:id="@+id/LetterListView"
             android:layout_width="20dp"
             android:layout_height="wrap_content"
-
             android:layout_alignParentRight="true"/>
 
         <TextView
