@@ -8,12 +8,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 public class ContactsFragment extends Fragment implements LetterListView.LetterListViewListener{
@@ -22,6 +27,11 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
     private Activity currentActivity;
     private TextView TextTip;
     private Handler handler;
+    private ArrayList<ContactsPerson> Persons;
+
+    private RecyclerView ContactsPersonListView;
+    private LinearLayoutManager linearLayoutManager;
+    private ContactsPersonListAdapter adapter;
 
     //有这样一种说法，Fragment的生命周期里，只有在onAttach()和onDetach()之间的时候getActivity()方法才不会返回null
     //emmmm但似乎依然会返回null 2018.4.8 1:05
@@ -71,6 +81,15 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
         letterListView.setLetterListViewListener(this);
 
         TextTip = currentActivity.findViewById(R.id.TextTipView);
+
+        ContactsPersonListView = currentActivity.findViewById(R.id.ContactsPersonListView);
+        linearLayoutManager = new LinearLayoutManager(currentActivity);
+        ContactsPersonListView.setLayoutManager(linearLayoutManager);
+
+        Persons  = ToolForContacts.getContactsPersonList(currentActivity);
+
+        adapter = new ContactsPersonListAdapter(Persons);
+        ContactsPersonListView.setAdapter(adapter);
     }
 
     @Override

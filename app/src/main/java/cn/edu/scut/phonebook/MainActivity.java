@@ -1,11 +1,16 @@
 package cn.edu.scut.phonebook;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -48,6 +53,12 @@ public class MainActivity extends AppCompatActivity{
 
         //getSupportActionBar().hide();//隐藏标题栏
         setContentView(R.layout.activity_main);
+
+        //动态获取读取联系人权限
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this,new String[]{ Manifest.permission.READ_CONTACTS },1);
+        }
 
         //初始化各组件
         initParts();

@@ -12,11 +12,18 @@
         android:orientation="horizontal"
         android:gravity="right">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/ContactsPersonListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"></android.support.v7.widget.RecyclerView>
+
         <cn.edu.scut.phonebook.LetterListView
             android:id="@+id/LetterListView"
             android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:background="#e1e1e1"/>
 
         <TextView
             android:id="@+id/TextTipView"
@@ -26,6 +33,7 @@
             android:layout_centerHorizontal="true"
             android:textSize="50dp"
             android:textColor="#565656"/>
+
 
 
     </RelativeLayout>

@@ -2,6 +2,8 @@ package cn.edu.scut.phonebook;
 
 /*
  * 通话记录页
+ * 写在onCreate方法中的内容可以写到onActivityCreated里
+ * 使用currentActivity成员变量获取当前活动
  */
 
 import android.app.Activity;
