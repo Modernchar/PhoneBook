@@ -1,11 +1,13 @@
 package cn.edu.scut.phonebook;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 
 /*
  * 联系人类，用于存储单一联系人信息
  */
-public class ContactsPerson {
+public class ContactsPerson implements Comparable{
     private String PersonID;
     private String name;
     private String LastNameFirstLetter; //姓名首字母
@@ -49,5 +51,13 @@ public class ContactsPerson {
         //还需要加入修改联系人表的代码
     }
 
-
+    @Override
+    public int compareTo(@NonNull Object o) {
+        ContactsPerson p = (ContactsPerson) o;
+        if(this.LastNameFirstLetter.compareTo(p.LastNameFirstLetter)<0)
+        {
+            return 1;
+        }
+        else return -1;
+    }
 }

@@ -8,11 +8,14 @@ import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 /*
     * Persenter层，专注于处理与 联系人 界面有关的逻辑
  */
-public class ToolForContacts {
+public class ToolForContacts{
 
     //将姓转成拼音,获取首字母
     public static String LastNameToPinyin(String name)
@@ -60,8 +63,11 @@ public class ToolForContacts {
 
         }
         cursor.close();
+
+        Collections.sort(Persons);
         return Persons;
     }
+
 
     //搜索符合相关信息的联系人
     //输入参数是字符串，可能是数字或汉字或字母
