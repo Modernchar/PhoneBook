@@ -9,20 +9,27 @@
         android:id="@+id/ContactsPersonListView_item_Tag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#d4d4d4"
+        android:background="#ececec"
         android:textSize="10dp"
-        android:paddingTop="2dp"
+        android:paddingTop="5dp"
         android:paddingBottom="2dp"
         android:paddingLeft="30dp"/>
+
+    <View
+        android:id="@+id/ContactsPersonListView_item_TopLine"
+        android:layout_marginLeft="30dp"
+        style="@style/Line"></View>
 
     <TextView
         android:id="@+id/ContactsPersonListView_item_Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="陈浩鑫"
-        android:textSize="20dp"
+        android:textSize="16dp"
         android:paddingLeft="30dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"/>
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:textColor="#2e2e2e"
+        />
 
 </LinearLayout>

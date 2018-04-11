@@ -430,8 +430,13 @@ public class HanziToPinyin {
             // 中文简体的支持情况
             // Check if zh_CN collation data is available
             final Locale locale[] = Collator.getAvailableLocales();
+
+            // 代码适配性增强
+            final Locale chinaAddition = new Locale("zh");
+
             for (int i = 0; i < locale.length; i++) {
-                if (locale[i].equals(Locale.CHINA)) {
+                // 增加判定条件
+                if (locale[i].equals(Locale.CHINA)|| locale[i].equals(chinaAddition)) {
                     // Do self validation just once.
                     if (DEBUG) {
                         Log.d(TAG, "Self validation. Result: " + doSelfValidation());
@@ -576,6 +581,7 @@ public class HanziToPinyin {
         }
         // 输入字符的长度
         final int inputLength = input.length();
+        //Log.i("HanziToPinyin","input:"+input);
         //
         final StringBuilder sb = new StringBuilder();
         // 默认的token

@@ -21,7 +21,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class ContactsFragment extends Fragment implements LetterListView.LetterListViewListener{
+public class ContactsFragment extends Fragment implements LetterListView.LetterListViewListener,Runnable{
 
     public LetterListView letterListView;
     private Activity currentActivity;
@@ -45,6 +45,16 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
             Log.i("unexpected", "In onAttach:currentActivity is null");
         }
         handler  = new Handler();
+
+
+        // 下面这两句原来是放在 onActivityCreated 最后的 TAG 1的地方
+        // ——————TAG 1 START ——————
+        Persons  = ToolForContacts.getContactsPersonList(currentActivity);
+
+        // 提前加载会不会快一点？
+        // 并不会
+        adapter = new ContactsPersonListAdapter(Persons);
+        // ——————TAG 1 END ——————
     }
 
     //这是个废弃的办法，只能用在Api 23以下的安卓版本中
@@ -86,9 +96,12 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
         linearLayoutManager = new LinearLayoutManager(currentActivity);
         ContactsPersonListView.setLayoutManager(linearLayoutManager);
 
-        Persons  = ToolForContacts.getContactsPersonList(currentActivity);
 
-        adapter = new ContactsPersonListAdapter(Persons);
+        // 这里查询非常慢，需要新建一个线程优化一下
+        //  new Thread(this).run();
+
+        // TAG 1
+
         ContactsPersonListView.setAdapter(adapter);
     }
 
@@ -114,4 +127,11 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
         }, 200);
     }
 
+    @Override
+    public void run() {
+
+
+        adapter = new ContactsPersonListAdapter(Persons);
+        ContactsPersonListView.setAdapter(adapter);
+    }
 }

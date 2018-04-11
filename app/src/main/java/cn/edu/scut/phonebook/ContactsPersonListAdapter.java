@@ -19,6 +19,7 @@ public class ContactsPersonListAdapter extends RecyclerView.Adapter<ContactsPers
     static class ViewHolder extends RecyclerView.ViewHolder{
         TextView Tag; // 字母标签
         TextView Name;
+        View Line;
 
 
         public ViewHolder(View view)
@@ -26,6 +27,7 @@ public class ContactsPersonListAdapter extends RecyclerView.Adapter<ContactsPers
             super(view);
             Name = view.findViewById(R.id.ContactsPersonListView_item_Name);
             Tag = view.findViewById(R.id.ContactsPersonListView_item_Tag);
+            Line = view.findViewById(R.id.ContactsPersonListView_item_TopLine);
         }
     }
 
@@ -51,7 +53,9 @@ public class ContactsPersonListAdapter extends RecyclerView.Adapter<ContactsPers
 
         if(position == 0)
         {
+
             holder.Tag.setVisibility(View.VISIBLE);
+            holder.Line.setVisibility(View.GONE);
         }
         else
         {
@@ -59,9 +63,11 @@ public class ContactsPersonListAdapter extends RecyclerView.Adapter<ContactsPers
             if(Persons.get(position).getLastNameFirstLetter().equals(LastPersonLastNameFirstLetter))
             {
                 holder.Tag.setVisibility(View.GONE);
+                holder.Line.setVisibility(View.VISIBLE);
             }
             else{
                 holder.Tag.setVisibility(View.VISIBLE);
+                holder.Line.setVisibility(View.GONE);
             }
         }
     }

@@ -23,7 +23,7 @@
             android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="#e1e1e1"/>
+            android:background="#f7f7f7"/>
 
         <TextView
             android:id="@+id/TextTipView"

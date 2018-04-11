@@ -25,10 +25,20 @@ public class ToolForContacts{
 
         // 获取姓的第一个拼音字母
         // NamePinyin.get(0).target 为获取姓的全部拼音
-        LastNameLetter = NamePinyin.get(0).target.substring(0,1);
-        Log.i("ToPinyin","LastNameLetter:"+LastNameLetter);
-        Log.i("ToPinyin","NamePinyin.get(1):"+NamePinyin.get(1).target);
-        return LastNameLetter;
+        if(NamePinyin.size()==0)
+        {
+            Log.d("NamePinyin","NamePinYin is empty");
+            return "";
+
+        }
+        else if(NamePinyin.get(0)!=null)
+        {
+            LastNameLetter = NamePinyin.get(0).target.substring(0,1);
+            return LastNameLetter;
+        }
+        // Log.i("ToPinyin","LastNameLetter:"+LastNameLetter);
+        // Log.i("ToPinyin","NamePinyin.get(1):"+NamePinyin.get(1).target);
+        return "";
     }
 
 

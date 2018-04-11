@@ -106,10 +106,10 @@ public class MainActivity extends AppCompatActivity{
         callRecordFragment = new CallRecordFragment();
         contactsFragment = new ContactsFragment();
 
-        Pages.add(myInfoFragment);
+
         Pages.add(callRecordFragment);
         Pages.add(contactsFragment);
-
+        Pages.add(myInfoFragment);
 
         pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()){
             @Override
@@ -132,19 +132,19 @@ public class MainActivity extends AppCompatActivity{
         MyInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewPager.setCurrentItem(0);
+                viewPager.setCurrentItem(2);
             }
         });
         CallRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewPager.setCurrentItem(1);
+                viewPager.setCurrentItem(0);
             }
         });
         Contacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewPager.setCurrentItem(2);
+                viewPager.setCurrentItem(1);
             }
         });
     }

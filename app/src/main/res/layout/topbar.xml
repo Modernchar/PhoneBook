@@ -7,16 +7,7 @@
     android:gravity="center"
     android:paddingTop="20dp">
 
-        <Button
-            android:layout_width="80dp"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:textSize="15sp"
-            android:background="@drawable/btnwithoutstyle"
-            android:id="@+id/MyInfo_Btn"
-            android:textColor="#FFFFFF"
-            android:layout_gravity="center_horizontal"
-            android:text="我的"/>
+
         <Button
             android:layout_width="80dp"
             android:layout_height="50dp"
@@ -35,5 +26,15 @@
             android:id="@+id/Contacts_Btn"
             android:textColor="#FFFFFF"
             android:text="联系人"/>
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:background="@drawable/btnwithoutstyle"
+            android:id="@+id/MyInfo_Btn"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center_horizontal"
+            android:text="我的"/>
 
 </LinearLayout>

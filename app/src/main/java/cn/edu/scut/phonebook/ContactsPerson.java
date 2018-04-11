@@ -56,8 +56,8 @@ public class ContactsPerson implements Comparable{
         ContactsPerson p = (ContactsPerson) o;
         if(this.LastNameFirstLetter.compareTo(p.LastNameFirstLetter)<0)
         {
-            return 1;
+            return -1;
         }
-        else return -1;
+        else return 1;
     }
 }
