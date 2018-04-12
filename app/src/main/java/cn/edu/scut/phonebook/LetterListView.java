@@ -152,6 +152,19 @@ public class LetterListView extends View {
         this.letterListViewListener = letterListViewListener;
     }
 
+    public void setTouchIndex(String letter)
+    {
+        for(int i=0;i<LetterList.length;i++)
+        {
+            if(LetterList[i].equals(letter))
+            {
+                currentLetter = i;
+                invalidate();
+                return;
+            }
+        }
+    }
+
 
 
 }

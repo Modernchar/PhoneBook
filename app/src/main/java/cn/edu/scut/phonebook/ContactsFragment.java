@@ -2,8 +2,6 @@ package cn.edu.scut.phonebook;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Paint;
-import android.icu.util.Measure;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -12,10 +10,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -32,6 +28,7 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
     private RecyclerView ContactsPersonListView;
     private LinearLayoutManager linearLayoutManager;
     private ContactsPersonListAdapter adapter;
+
 
     //有这样一种说法，Fragment的生命周期里，只有在onAttach()和onDetach()之间的时候getActivity()方法才不会返回null
     //emmmm但似乎依然会返回null 2018.4.8 1:05
@@ -87,12 +84,25 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
         {
             Log.i("unexpected", "currentActivity is null");
         }
-        letterListView = (LetterListView) currentActivity.findViewById(R.id.LetterListView);
+        letterListView =  currentActivity.findViewById(R.id.LetterListView);
         letterListView.setLetterListViewListener(this);
 
         TextTip = currentActivity.findViewById(R.id.TextTipView);
 
         ContactsPersonListView = currentActivity.findViewById(R.id.ContactsPersonListView);
+        ContactsPersonListView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                //letterListView.setTouchIndex();
+                Log.i("onScrolled","dy:"+dy);
+            }
+        });
         linearLayoutManager = new LinearLayoutManager(currentActivity);
         ContactsPersonListView.setLayoutManager(linearLayoutManager);
 
@@ -103,12 +113,14 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
         // TAG 1
 
         ContactsPersonListView.setAdapter(adapter);
+
     }
 
     @Override
     public void wordChange(String letter) {
         Log.i("wordChange","current letter:"+letter);
         updateTextTip(letter);
+        updateContactsPersonListView(letter);
     }
 
     public void updateTextTip(String letter)
@@ -127,6 +139,26 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
         }, 200);
     }
 
+    // 联系人列表滑动至指定位置
+    private void updateContactsPersonListView(String letter)
+    {
+        for(int i=0;i<Persons.size();i++)
+        {
+            String PersonNameLetter = Persons.get(i).getLastNameFirstLetter() ;
+
+            // 如果指定的字母与联系人数组中的姓名首字母匹配，列表滑动到当前位置
+            if(letter.equals(PersonNameLetter))
+            {
+                linearLayoutManager.scrollToPosition(i);
+                linearLayoutManager.setStackFromEnd(true);
+
+                return;
+            }
+        }
+    }
+
+
+
     @Override
     public void run() {
 
@@ -134,4 +166,6 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
         adapter = new ContactsPersonListAdapter(Persons);
         ContactsPersonListView.setAdapter(adapter);
     }
+
+
 }
