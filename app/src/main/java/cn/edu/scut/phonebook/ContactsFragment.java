@@ -50,7 +50,7 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
 
         // 提前加载会不会快一点？
         // 并不会
-        adapter = new ContactsPersonListAdapter(Persons);
+        adapter = new ContactsPersonListAdapter(currentActivity,Persons);
         // ——————TAG 1 END ——————
     }
 
@@ -103,6 +103,8 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
                 Log.i("onScrolled","dy:"+dy);
             }
         });
+
+
         linearLayoutManager = new LinearLayoutManager(currentActivity);
         ContactsPersonListView.setLayoutManager(linearLayoutManager);
 
@@ -163,7 +165,7 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
     public void run() {
 
 
-        adapter = new ContactsPersonListAdapter(Persons);
+        adapter = new ContactsPersonListAdapter(currentActivity,Persons);
         ContactsPersonListView.setAdapter(adapter);
     }
 

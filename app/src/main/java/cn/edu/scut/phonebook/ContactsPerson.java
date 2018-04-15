@@ -2,12 +2,13 @@ package cn.edu.scut.phonebook;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /*
  * 联系人类，用于存储单一联系人信息
  */
-public class ContactsPerson implements Comparable{
+public class ContactsPerson implements Comparable,Serializable{
     private String PersonID;
     private String name;
     private String LastNameFirstLetter; //姓名首字母
