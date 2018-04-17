@@ -44,14 +44,7 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
         handler  = new Handler();
 
 
-        // 下面这两句原来是放在 onActivityCreated 最后的 TAG 1的地方
-        // ——————TAG 1 START ——————
-        Persons  = ToolForContacts.getContactsPersonList(currentActivity);
 
-        // 提前加载会不会快一点？
-        // 并不会
-        adapter = new ContactsPersonListAdapter(currentActivity,Persons);
-        // ——————TAG 1 END ——————
     }
 
     //这是个废弃的办法，只能用在Api 23以下的安卓版本中
@@ -74,7 +67,7 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         Log.i("onActivityCreated","onActivityCreated");
@@ -84,12 +77,12 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
         {
             Log.i("unexpected", "currentActivity is null");
         }
-        letterListView =  currentActivity.findViewById(R.id.LetterListView);
+        letterListView =  (LetterListView) currentActivity.findViewById(R.id.LetterListView);
         letterListView.setLetterListViewListener(this);
 
-        TextTip = currentActivity.findViewById(R.id.TextTipView);
+        TextTip = (TextView)currentActivity.findViewById(R.id.TextTipView);
 
-        ContactsPersonListView = currentActivity.findViewById(R.id.ContactsPersonListView);
+        ContactsPersonListView = (RecyclerView)currentActivity.findViewById(R.id.ContactsPersonListView);
         ContactsPersonListView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -113,6 +106,15 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
         //  new Thread(this).run();
 
         // TAG 1
+
+        // 下面这两句原来是放在 onActivityCreated 最后的 TAG 1的地方
+        // ——————TAG 1 START ——————
+        Persons  = ToolForContacts.getContactsPersonList(currentActivity);
+
+        // 提前加载会不会快一点？
+        // 并不会
+        adapter = new ContactsPersonListAdapter(currentActivity,Persons);
+        // ——————TAG 1 END ——————
 
         ContactsPersonListView.setAdapter(adapter);
 

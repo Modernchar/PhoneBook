@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ContactsPersonCardActivity">
+    tools:context=".ContactsPersonCardActivity"
+    >
 
     <TextView
         android:text="陈浩鑫"
@@ -23,14 +24,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:divider="@drawable/dividerline_vertical"
+        android:showDividers="middle"
+        android:dividerPadding="5dp">
+
 
         <Button
             android:id="@+id/QRCodeShare_Btn"
             android:text="二维码名片"
             android:background="@drawable/btnwithoutstyle"
             android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_height="40dp"
             />
 
         <Button
@@ -38,15 +43,20 @@
             android:text="通话记录"
             android:background="@drawable/btnwithoutstyle"
             android:layout_width="80dp"
-            android:layout_height="80dp" />
+            android:layout_height="40dp" />
 
         <Button
             android:id="@+id/Collected_Btn"
             android:text="收藏"
             android:background="@drawable/btnwithoutstyle"
             android:layout_width="80dp"
-            android:layout_height="80dp" />
+            android:layout_height="40dp" />
     </LinearLayout>
+
+    <View
+        style="@style/Line"
+        android:layout_marginLeft="50dp">
+    </View>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/ContactsPersonPhoneNumsListView"

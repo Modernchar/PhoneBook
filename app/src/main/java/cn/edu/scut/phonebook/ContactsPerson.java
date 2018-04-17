@@ -39,12 +39,9 @@ public class ContactsPerson implements Comparable,Serializable{
         return this.LastNameFirstLetter;
     }
 
-    /* 首字母应该不能认为变更才对
-    public void setLastNameFirstLetter(String s)
-    {
-        this.LastNameFirstLetter = s;
+    public ArrayList<String> getPhoneNumbers(){
+        return this.PhoneNumbers;
     }
-    */
 
     public void setName(String s)
     {

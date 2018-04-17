@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/ContactsPersonPhoneNumsListView_item_TopLine"
+        android:layout_marginLeft="30dp"
+        style="@style/Line"></View>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_alignParentLeft="true">
+
+        <TextView
+            android:id="@+id/ContactsPersonPhoneNumsListView_item_PhoneNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15626279041"
+            android:textSize="20sp"
+            android:textColor="#333333"/>
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/ContactsPersonPhoneNumsListView_item_Location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:textSize="12dp"
+                android:text="广东广州"/>
+            <TextView
+                android:id="@+id/ContactsPersonPhoneNumsListView_item_Tele"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textSize="12dp"
+                android:text="联通"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:divider="@drawable/dividerline_vertical"
+        android:showDividers="middle"
+        android:dividerPadding="10dp"
+        android:paddingRight="20dp">
+        <Button
+            android:id="@+id/ContactsPersonPhoneNumsListView_item_CallBtn"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="Call"
+            android:background="@drawable/btnwithoutstyle"/>
+        <Button
+            android:id="@+id/ContactsPersonPhoneNumsListView_item_MsgBtn"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="Msg"
+            android:background="@drawable/btnwithoutstyle"/>
+    </LinearLayout>
+
+</RelativeLayout>

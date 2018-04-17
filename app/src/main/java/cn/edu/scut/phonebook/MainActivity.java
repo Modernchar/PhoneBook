@@ -22,6 +22,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +59,16 @@ public class MainActivity extends AppCompatActivity{
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED)
         {
             ActivityCompat.requestPermissions(this,new String[]{ Manifest.permission.READ_CONTACTS },1);
+        }
+        else{
+            Toast.makeText(this, "未获取读取联系人权限", Toast.LENGTH_SHORT).show();
+        }
+
+        // 动态获取拨号权限
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.CALL_PHONE},1);
+        }else {
+            Toast.makeText(this, "未获取通话权限", Toast.LENGTH_SHORT).show();
         }
 
         //初始化各组件

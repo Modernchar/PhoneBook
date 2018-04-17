@@ -61,8 +61,10 @@ public class ToolForContacts{
             Cursor PhoneNumsCursor = currentActivity.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
                     ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + ID, null, null);
             ArrayList<String> PhoneNums = new ArrayList<String>();
+
             while (PhoneNumsCursor.moveToNext()) {
                 String num = PhoneNumsCursor.getString(PhoneNumsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
                 PhoneNums.add(num);// 添加电话号码
             }
             PhoneNumsCursor.close();

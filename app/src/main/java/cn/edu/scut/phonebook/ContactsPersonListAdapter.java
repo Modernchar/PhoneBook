@@ -30,8 +30,8 @@ public class ContactsPersonListAdapter extends RecyclerView.Adapter<ContactsPers
         public ViewHolder(View view)
         {
             super(view);
-            Name = view.findViewById(R.id.ContactsPersonListView_item_Name);
-            Tag = view.findViewById(R.id.ContactsPersonListView_item_Tag);
+            Name = (TextView)view.findViewById(R.id.ContactsPersonListView_item_Name);
+            Tag = (TextView)view.findViewById(R.id.ContactsPersonListView_item_Tag);
             Line = view.findViewById(R.id.ContactsPersonListView_item_TopLine);
 
             thisView = view;
