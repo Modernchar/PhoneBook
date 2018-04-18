@@ -95,4 +95,32 @@ public class ContactsUtils {
         //玛德还没想好
     }
 
+    public static boolean isNumeric(String s) {
+        return s != null && s.matches("[-+]?\\d*\\.?\\d+");
+    }
+
+    public static ArrayList<ContactsPerson> searchContacts(ArrayList<ContactsPerson> allContacts, String key) {
+        ArrayList<ContactsPerson> resultList = new ArrayList<>();
+
+        for(ContactsPerson person : allContacts) {
+            int flag = 0;
+            if(person.getName().contains(key)) {
+                resultList.add(person);
+                flag++;
+            }
+            if(isNumeric(key)) {
+                for (String number : person.getNumbers()) {
+                    if (number.contains(key)) {
+                        person.addSearchResult(number);
+                        flag++;
+                    }
+                }
+            }
+            if (flag > 0) {
+                resultList.add(person);
+            }
+        }
+        return resultList;
+    }
+
 }
