@@ -15,7 +15,7 @@ import java.util.Comparator;
 /*
     * Persenter层，专注于处理与 联系人 界面有关的逻辑
  */
-public class ToolForContacts{
+public class ContactsUtils {
 
     //将姓转成拼音,获取首字母
     public static String LastNameToPinyin(String name)

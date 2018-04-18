@@ -18,14 +18,14 @@ public class ContactsPerson implements Comparable,Serializable{
     {
         this.PersonID = ID;
         this.name = name;
-        this.LastNameFirstLetter = ToolForContacts.LastNameToPinyin(name);
+        this.LastNameFirstLetter = ContactsUtils.LastNameToPinyin(name);
     }
 
     public ContactsPerson(String ID,String name,ArrayList<String> Nums)
     {
         this.PersonID = ID;
         this.name = name;
-        this.LastNameFirstLetter = ToolForContacts.LastNameToPinyin(name);
+        this.LastNameFirstLetter = ContactsUtils.LastNameToPinyin(name);
         this.PhoneNumbers = Nums;
     }
 
