@@ -1,13 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/MyInfoLayout">
 
-    <TextView
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="我的"/>
+        android:layout_height="20px"
+        />
+    <Button
+        android:text="开始时间"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_startDate"
+        android:background="@drawable/btn_nor_down"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
+        android:textAlignment="center" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        />
+    <Button
+        android:text="结束时间"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_endDate"
+        android:background="@drawable/btn_nor_down"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30px"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:layout_marginLeft="60px"
+        android:layout_marginRight="60px"
+        android:textAlignment="center"
+        android:background="@drawable/editline_bg"
+        android:hint="输入联系人姓名精确查找" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30px"
+        />
+    <Button
+        android:text="查找通话记录"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_find"
+        android:background="@drawable/btn_nor_down"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
+        />
+
 </LinearLayout>

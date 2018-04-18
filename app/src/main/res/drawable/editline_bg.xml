@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <selector>
+        <item android:drawable="@drawable/abc_textfield_activated_mtrl_alpha"/>
+        <item android:drawable="@drawable/btn_bg_white"></item>
+    </selector>
+
+</inset>

@@ -7,11 +7,14 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.provider.CallLog;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CallLogUtils {
     private static String DateExchange(long lDate){//把日期转化为String
@@ -84,7 +87,7 @@ public class CallLogUtils {
         ContentResolver contentResolver= activity.getContentResolver();
         //判断是否有权限
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_CALL_LOG)!= PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CALL_LOG}, 1000);
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CALL_LOG}, 1);
         }
         //系统方式获取通讯录存储地址，按日期倒序
         cursor = contentResolver.query(CallLog.Calls.CONTENT_URI, null, null, null, CallLog.Calls.DATE + " desc");
@@ -141,45 +144,85 @@ public class CallLogUtils {
         }
         return ""+sum+"分钟";
     }
+    public static String  GetCurrentMonthDuration(List<Calllog> calllogList){
+        //按照严格标准相加
+        /*......*/
+
+        //按照收费标准，未满一分钟计费一分钟
+        int sum=0;
+        int n=calllogList.size();
+        for(int i=0;i<n;i++){
+            Calllog temp=calllogList.get(i);
+            Date date = new Date(System.currentTimeMillis());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String date_today = sdf.format(date);
+            Date callDate = new Date(temp.get_LDate());
+            String callDateStr = sdf.format(callDate);
+            if(date_today.contains(callDateStr.substring(0, 7))){
+                int min=(int)temp.get_duration()/60;
+                int sec=(int)temp.get_duration()%60;
+                if(sec>0)
+                    min++;
+                sum+=min;
+            }
+        }
+        return ""+sum+"分钟";
+    }
 
    static List<Calllog> FindRecords(List<Calllog> calllogs, Date Startdate, Date Enddate, String name){
-        List<Calllog> result=new ArrayList<>();
-        if(name==null){
-            if(Startdate==null&&Enddate==null){
-                return calllogs;
-            }
-            else {
-                int len=calllogs.size();
-                for(int i=0;i<len;i++){
-                    Date callDate = new Date(calllogs.get(i).get_LDate());
-                    if(callDate.compareTo(Startdate)>=0&&callDate.compareTo(Enddate)<=0)
-                        result.add(calllogs.get(i));
-                }
-            }
-        }
-        else{
-            if(Startdate==null&&Enddate==null){
-                int len=calllogs.size();
-                for(int i=0;i<len;i++){
-                    String na=calllogs.get(i).getName();
-                    String nu=calllogs.get(i).getNumber();
-                    if(name.equals(na)||name.equals(nu))
-                        result.add(calllogs.get(i));
-                }
-                return calllogs;
-            }
-            else {
-                int len=calllogs.size();
-                for(int i=0;i<len;i++){
-                    Date callDate = new Date(calllogs.get(i).get_LDate());
-                    String na=calllogs.get(i).getName();
-                    String nu=calllogs.get(i).getNumber();
-                    if(callDate.compareTo(Startdate)>=0&&callDate.compareTo(Enddate)<=0&&(name.equals(na)||name.equals(nu)))
-                        result.add(calllogs.get(i));
-                }
-            }
-        }
-        return null;
-    }
+       List<Calllog> result=new ArrayList<>();
+
+       // 名字空
+       if(name.equals("")|| name ==null){
+           if(Startdate==null&&Enddate==null){
+               return calllogs;
+           }
+           else {
+               int len=calllogs.size();
+               for(int i=0;i<len;i++){
+                   Date callDate = new Date(calllogs.get(i).get_LDate());
+                   if(callDate.compareTo(Startdate)>=0&&callDate.compareTo(Enddate)<=0)
+                       result.add(calllogs.get(i));
+               }
+           }
+       }
+       // 名字不空
+       else{
+           if(Startdate==null && Enddate==null){ // 时间空
+
+               int len=calllogs.size();
+               Pattern MatchString = Pattern.compile(name);
+
+               for(int i=0;i<len;i++){
+                   String na=calllogs.get(i).getName();
+                   String nu=calllogs.get(i).getNumber();
+
+                   // 字符串匹配
+                   Matcher NameMatch = MatchString.matcher(na);
+                   Matcher NumMatch = MatchString.matcher(nu);
+
+                   if(NameMatch.find()||(!nu.equals("") && NumMatch.find())) {
+
+                       result.add(calllogs.get(i));
+                   }
+               }
+               return result;
+           }
+           else {
+
+
+               int len=calllogs.size();
+
+               for(int i=0;i<len;i++){
+                   Date callDate = new Date(calllogs.get(i).get_LDate());
+                   String na=calllogs.get(i).getName();
+                   String nu=calllogs.get(i).getNumber();
+                   if(callDate.compareTo(Startdate)>=0&&callDate.compareTo(Enddate)<=0&&(name.equals(na)||(!nu.equals(""))&&name.equals(nu)))//修改3
+                       result.add(calllogs.get(i));
+               }
+           }
+       }
+       return result;//修改2
+   }
 
 }
