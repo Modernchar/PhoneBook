@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+
 public class ContactsPersonCardActivity extends AppCompatActivity {
 
     ContactsPerson person;

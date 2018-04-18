@@ -11,14 +11,21 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CallRecordFragment extends Fragment {
 
     private Activity currentActivity;
+    private List<Calllog> calllogList = new ArrayList<>();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,5 +46,21 @@ public class CallRecordFragment extends Fragment {
         {
             Log.i("unexpected", "In onAttach:currentActivity is null");
         }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        //新建工具类
+
+        //获取通话记录信息
+        calllogList=CallLogUtils.GetRecords(currentActivity);
+
+        RecyclerView recyclerView = (RecyclerView) currentActivity.findViewById(R.id.recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(currentActivity);
+        recyclerView.setLayoutManager(layoutManager);
+        CalllogAdapter adapter = new CalllogAdapter(currentActivity,calllogList);
+        recyclerView.setAdapter(adapter);
     }
 }

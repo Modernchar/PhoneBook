@@ -61,14 +61,22 @@ public class MainActivity extends AppCompatActivity{
             ActivityCompat.requestPermissions(this,new String[]{ Manifest.permission.READ_CONTACTS },1);
         }
         else{
-            Toast.makeText(this, "未获取读取联系人权限", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "未获取读取联系人权限", Toast.LENGTH_SHORT).show();
         }
 
         // 动态获取拨号权限
         if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.CALL_PHONE},1);
         }else {
-            Toast.makeText(this, "未获取通话权限", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "未获取通话权限", Toast.LENGTH_SHORT).show();
+        }
+        // 动态获取读取通话记录权限
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CALL_LOG)!= PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_CALL_LOG}, 1);
+        }
+
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_CALL_LOG)!= PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_CALL_LOG}, 1);
         }
 
         //初始化各组件
