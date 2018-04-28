@@ -7,13 +7,12 @@
     <cn.edu.scut.phonebook.SwipeLayout
         android:layout_marginTop="2dp"
         android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
         android:layout_width="match_parent"
         android:background="#ffffff"
-        android:layout_height="60dp">
+        android:layout_height="60dp" >
 
         <RelativeLayout
-
+            android:id="@+id/RL"
             android:layout_width="match_parent"
             android:layout_height="60dp">
 
@@ -22,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="28dp"
                 android:layout_marginTop="7dp"
                 android:text="1"
                 android:textColor="@android:color/black"
@@ -33,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="28dp"
                 android:layout_marginTop="32dp"
                 android:text="2"
                 android:textSize="14sp" />
@@ -41,7 +40,7 @@
             <ImageView
                 android:text="3"
                 android:id="@+id/calllog_type"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="15dp"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
@@ -51,7 +50,7 @@
                 android:id="@+id/calllog_lDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="34dp"
                 android:layout_marginTop="7dp"
                 android:gravity="right"
                 android:text="4"
@@ -61,11 +60,20 @@
                 android:id="@+id/calllog_duration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="34dp"
                 android:layout_marginTop="32dp"
                 android:gravity="right"
                 android:text="5"
                 android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/more_inf"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="332dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/inf"
+                android:layout_gravity="center_vertical" />
 
         </RelativeLayout>
 
@@ -77,12 +85,13 @@
                 android:clickable="true"
                 android:layout_width="80dp"
                 android:layout_height="60dp"
-                android:background="#ff0000">
+                android:background="@drawable/btn_commit">
                 <TextView
                     android:layout_centerInParent="true"
                     android:layout_width="40dp"
                     android:layout_height="20dp"
                     android:text="delete"
+                    android:background="@drawable/btn_commit"
                     android:textColor="#FFFFFF"/>
             </RelativeLayout>
         </LinearLayout>

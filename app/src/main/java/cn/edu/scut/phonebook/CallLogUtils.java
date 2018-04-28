@@ -3,12 +3,11 @@ package cn.edu.scut.phonebook;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.provider.CallLog;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,6 +61,15 @@ public class CallLogUtils {
         return sduration;
     }
 
+    public static void call(Activity activity, String phone) {
+        if(ActivityCompat.checkSelfPermission(activity, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.CALL_PHONE},1);
+        }else {
+            Intent intent=new Intent(Intent.ACTION_CALL,CallLog.Calls.CONTENT_URI.parse("tel:"+phone));
+            activity.startActivity(intent);
+        }
+    }
+
     public static void DeleteRecord(Activity activity,int id){
         ContentResolver contentResolver= activity.getContentResolver();
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_CALL_LOG)!= PackageManager.PERMISSION_GRANTED) {
@@ -79,6 +87,52 @@ public class CallLogUtils {
         if(name!=null)
             contentResolver.delete(CallLog.Calls.CONTENT_URI, CallLog.Calls.CACHED_NAME+"=?", new String[]{name});//根据名字删除该联系人全部数据
 
+    }
+
+    public static Calllog getFirst(Activity activity) {
+        Cursor cursor = null;
+        ContentResolver contentResolver= activity.getContentResolver();
+        //判断是否有权限
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_CALL_LOG)!= PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CALL_LOG}, 1000);
+        }
+        //系统方式获取通讯录存储地址，按日期倒序
+        cursor = contentResolver.query(CallLog.Calls.CONTENT_URI, null, null, null, CallLog.Calls.DATE + " desc");
+        if (cursor == null)
+            return null;
+
+
+        cursor.moveToFirst();
+        int _id = cursor.getInt(cursor.getColumnIndex(CallLog.Calls._ID));//ID
+        String name = cursor.getString(cursor.getColumnIndex(CallLog.Calls.CACHED_NAME));//姓名
+        String number = cursor.getString(cursor.getColumnIndex(CallLog.Calls.NUMBER));//号码
+        int _type = cursor.getInt(cursor.getColumnIndex(CallLog.Calls.TYPE));//呼入1/呼出(2)/未接3
+        long _lDate = cursor.getLong(cursor.getColumnIndex(CallLog.Calls.DATE));//拨打时间
+        long _duration = cursor.getLong(cursor.getColumnIndex(CallLog.Calls.DURATION));//通话时长
+
+        if(name==null) {
+            name = number;
+            number = "";
+        }
+
+        String lDate = DateExchange(_lDate);
+        String duration = DurationExchange(_duration);
+
+        int type;
+        if(_type==1) {
+            type=R.drawable.in;
+        }
+        else if(_type==2) {
+            type=R.drawable.out;
+        }
+        else {
+            type=R.drawable.down;
+        }
+        Calllog calllog = new Calllog(_id, _type, _lDate, _duration, name, number, type, lDate, duration);
+
+
+        cursor.close();
+        return calllog;
     }
 
     public static List<Calllog> GetRecords(Activity activity){//获取通话记录
@@ -212,12 +266,15 @@ public class CallLogUtils {
 
 
                int len=calllogs.size();
-
+               Pattern MatchString = Pattern.compile(name);
                for(int i=0;i<len;i++){
                    Date callDate = new Date(calllogs.get(i).get_LDate());
                    String na=calllogs.get(i).getName();
                    String nu=calllogs.get(i).getNumber();
-                   if(callDate.compareTo(Startdate)>=0&&callDate.compareTo(Enddate)<=0&&(name.equals(na)||(!nu.equals(""))&&name.equals(nu)))//修改3
+                   // 字符串匹配
+                   Matcher NameMatch = MatchString.matcher(na);
+                   Matcher NumMatch = MatchString.matcher(nu);
+                   if(callDate.compareTo(Startdate)>=0&&callDate.compareTo(Enddate)<=0&&(NameMatch.find()||(!nu.equals("") && NumMatch.find())))//修改3
                        result.add(calllogs.get(i));
                }
            }

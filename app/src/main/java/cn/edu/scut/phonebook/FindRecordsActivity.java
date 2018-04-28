@@ -10,13 +10,13 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
+import android.widget.Toast;
+import android.support.design.widget.FloatingActionButton;
 import cn.codbking.widget.OnSureLisener;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class FindRecordsActivity extends AppCompatActivity {
     private List<Calllog> calllogList = new ArrayList<>();
@@ -41,22 +41,46 @@ public class FindRecordsActivity extends AppCompatActivity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }*/
 
-        Intent intent=getIntent();
-        SearchCondition searchCondition=(SearchCondition) intent.getSerializableExtra("searchcondition");
+
 
         //获取通话记录信息
         calllogList=CallLogUtils.GetRecords(this);
+        Intent intent=getIntent();
+        SearchCondition searchCondition=(SearchCondition) intent.getSerializableExtra("searchcondition");
         //查找
         List<Calllog> tempcall = new ArrayList<>();
         tempcall=CallLogUtils.FindRecords(calllogList,searchCondition.GetStartTime(),searchCondition.GetEndTime(),searchCondition.GetName());
 
         //显示列表
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        final FloatingActionButton upt = (FloatingActionButton) findViewById(R.id.upt);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            boolean loading = true;
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (loading) {
+                    if (layoutManager.findFirstVisibleItemPosition() >= 9) {
+                        upt.setVisibility(View.VISIBLE);
+                    } else {
+                        upt.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+
+        upt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerView.smoothScrollToPosition(0);
+                Toast.makeText(FindRecordsActivity.this, "已回到顶部", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         CalllogAdapter adapter = new CalllogAdapter(this,tempcall);
         recyclerView.setAdapter(adapter);
-
 
         //显示初始化按钮
         button_s = (Button)findViewById(R.id.button_s);
