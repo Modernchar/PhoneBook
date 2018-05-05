@@ -5,8 +5,8 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.READ_CALL_LOG"/><!--读取通话记录权限-->
-    <uses-permission android:name="android.permission.WRITE_CALL_LOG"/>
+    <uses-permission android:name="android.permission.READ_CALL_LOG" /> <!-- 读取通话记录权限 -->
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
 
     <application
         android:allowBackup="true"
@@ -26,10 +26,11 @@
         </activity>
         <activity
             android:name=".ContactsPersonCardActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".FindRecordsActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".Bit_scan"></activity>
     </application>
 
 </manifest>
