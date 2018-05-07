@@ -25,6 +25,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".AddContactsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
             android:name=".ContactsPersonCardActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity

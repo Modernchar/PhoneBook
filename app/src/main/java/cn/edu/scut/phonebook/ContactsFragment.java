@@ -2,9 +2,11 @@ package cn.edu.scut.phonebook;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -81,6 +84,15 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
         letterListView.setLetterListViewListener(this);
 
         TextTip = (TextView)currentActivity.findViewById(R.id.TextTipView);
+
+        FloatingActionButton addContactActivityButton = (FloatingActionButton) currentActivity.findViewById(R.id.add_contact_activity_button);
+        addContactActivityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(currentActivity, AddContactsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         ContactsPersonListView = (RecyclerView)currentActivity.findViewById(R.id.ContactsPersonListView);
         ContactsPersonListView.addOnScrollListener(new RecyclerView.OnScrollListener() {

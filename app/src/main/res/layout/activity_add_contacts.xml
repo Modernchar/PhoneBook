@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      tools:context=".AddContactsActivity">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="3"
+			android:text="姓名"
+			android:textAlignment="center"
+			android:textColor="#000000"
+			android:textSize="18sp"/>
+
+		<EditText
+			android:layout_width="0dp"
+			android:layout_weight="7"
+			android:layout_height="wrap_content"
+			android:id="@+id/editText_addContactsName"
+			android:inputType="text"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="3"
+			android:text="手机"
+			android:textAlignment="center"
+			android:textColor="#000000"
+			android:textSize="18sp"/>
+
+		<EditText
+			android:layout_width="0dp"
+			android:layout_weight="7"
+			android:layout_height="wrap_content"
+			android:id="@+id/editText_phoneNumber"
+			android:inputType="phone"
+			android:hint="留空则为无"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="3"
+			android:text="Email"
+			android:textAlignment="center"
+			android:textColor="#000000"
+			android:textSize="18sp"/>
+
+		<EditText
+			android:layout_width="0dp"
+			android:layout_weight="7"
+			android:layout_height="wrap_content"
+			android:id="@+id/editText_email"
+			android:inputType="textEmailAddress"
+			android:hint="留空则为无"/>
+
+	</LinearLayout>
+
+	<Button
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/button_add_contacts"
+		android:text="完成"/>
+
+	<Button
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/button_cancel_add_contacts"
+		android:text="取消"/>
+
+</LinearLayout>
