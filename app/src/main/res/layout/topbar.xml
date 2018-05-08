@@ -41,14 +41,6 @@
             android:text="我的"/>
         </LinearLayout>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:text="扫"
-            android:textColor="#FFFFFF"
-            android:id="@+id/Bit_scan"
-            android:background="@drawable/btnwithoutstyle"/>
 
 
 </RelativeLayout>

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -34,7 +35,11 @@ import com.yzq.zxinglibrary.android.CaptureActivity;
 import com.yzq.zxinglibrary.bean.ZxingConfig;
 import com.yzq.zxinglibrary.common.Constant;
 
+import org.litepal.LitePal;
+import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
@@ -52,7 +57,6 @@ public class MainActivity extends AppCompatActivity{
     private Button MyInfo; //我的
     private Button CallRecord; //通话记录
     private Button Contacts; // 联系人
-    private Button BitScan; //扫一扫
 
     private MyInfoFragment myInfoFragment;
     private CallRecordFragment callRecordFragment;
@@ -90,6 +94,7 @@ public class MainActivity extends AppCompatActivity{
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_CALL_LOG)!= PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_CALL_LOG}, 1);
         }
+        //初始化数据库
 
         //初始化各组件
         initParts();
@@ -118,7 +123,6 @@ public class MainActivity extends AppCompatActivity{
         MyInfo = (Button)findViewById(R.id.MyInfo_Btn);
         CallRecord = (Button)findViewById(R.id.CallRecord_Btn);
         Contacts = (Button)findViewById(R.id.Contacts_Btn);
-        BitScan = (Button)findViewById(R.id.Bit_scan);
 
         LayoutInflater layoutInflater = LayoutInflater.from(this);
 
@@ -157,6 +161,15 @@ public class MainActivity extends AppCompatActivity{
         };
 
         viewPager.setAdapter(pagerAdapter);
+        /*
+        LitePal.getDatabase();
+        //数据库查询
+        ContactsDBHandle contactsDBHandle = new ContactsDBHandle();
+        contactsDBHandle.Create(MainActivity.this);
+        Date date = new Date(System.currentTimeMillis());
+        contactsDBHandle.setDate("洪浩强",date);
+        Toast.makeText(this, contactsDBHandle.getDate("洪浩强").toString(), Toast.LENGTH_SHORT).show();
+        */
     }
     //初始化按钮的点击事件
     private void initButtonsClickEvents()
@@ -179,65 +192,10 @@ public class MainActivity extends AppCompatActivity{
                 viewPager.setCurrentItem(1);
             }
         });
-        BitScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AndPermission.with(MainActivity.this)
-                        .permission(Permission.CAMERA, Permission.READ_EXTERNAL_STORAGE)
-                        .onGranted(new Action() {
-                            @Override
-                            public void onAction(List<String> permissions) {
-                                Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
-
-                                /*ZxingConfig是配置类  可以设置是否显示底部布局，闪光灯，相册，是否播放提示音  震动等动能
-                                 * 也可以不传这个参数
-                                 * 不传的话  默认都为默认不震动  其他都为true
-                                 * */
-
-                                ZxingConfig config = new ZxingConfig();
-                                config.setPlayBeep(true);
-                                config.setShake(true);
-                                intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
-
-                                startActivityForResult(intent, REQUEST_CODE_SCAN);
-                            }
-                        })
-                        .onDenied(new Action() {
-                            @Override
-                            public void onAction(List<String> permissions) {
-                                Uri packageURI = Uri.parse("package:" + getPackageName());
-                                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                                startActivity(intent);
-
-                                Toast.makeText(MainActivity.this, "没有权限无法扫描呦", Toast.LENGTH_LONG).show();
-                            }
-                        }).start();
-            }
-        });
     }
 
     private void initFragment()
     {
 
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // 扫描二维码/条码回传
-        if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
-            if (data != null) {
-
-                String content = data.getStringExtra(Constant.CODED_CONTENT);
-                Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
-                ContactsPerson contactsPerson = new ContactsPerson();
-                if(contactsPerson.setVcard(content)==1){
-
-                }
-
-            }
-        }
     }
 }

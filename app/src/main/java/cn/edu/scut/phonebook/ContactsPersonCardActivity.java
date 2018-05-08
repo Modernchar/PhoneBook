@@ -9,13 +9,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.zxing.WriterException;
 import com.yzq.zxinglibrary.encode.CodeCreator;
+
+import org.litepal.LitePal;
+import org.litepal.crud.DataSupport;
+
+import java.util.Date;
+import java.util.List;
 
 public class ContactsPersonCardActivity extends AppCompatActivity {
 
@@ -27,6 +35,8 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
     private ContactsPersonPhoneNumListAdapter adapter;
 
     private Button Bit_Card; //二维码名片
+
+    private Button Collected; //星标联系人
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +77,7 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
     }
     private void initButton(){
         Bit_Card = (Button)findViewById(R.id.QRCodeShare_Btn);
+        Collected = (Button)findViewById(R.id.Collected_Btn);
     }
 
     //二维码按钮点击事件
@@ -88,6 +99,24 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
                 QRShowDialog dialog = dialogBuild.create();
                 dialog.setCanceledOnTouchOutside(true);// 点击外部区域关闭
                 dialog.show();
+            }
+        });
+        Collected.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LitePal.getDatabase();
+                //数据库查询
+                ContactsDBHandle contactsDBHandle = new ContactsDBHandle();
+                contactsDBHandle.Create(ContactsPersonCardActivity.this);
+                Date date = new Date(System.currentTimeMillis());
+                contactsDBHandle.setDate("洪浩强",date);
+                List<ContactsDB> contactsDBS = DataSupport.findAll(ContactsDB.class);
+                for (ContactsDB contactsDB:contactsDBS){
+                    Log.i("contantdb",contactsDB.getName());
+                }
+                Log.i("contant","有点到");
+                //String tempname = contactsDBHandle.getDate("洪浩强").toString();
+                //Toast.makeText(ContactsPersonCardActivity.this, contactsDBHandle.getDate("洪浩强").toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
