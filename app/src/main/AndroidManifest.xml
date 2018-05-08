@@ -30,7 +30,7 @@
         <activity
             android:name=".FindRecordsActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".Bit_scan"></activity>
+        <activity android:name=".Bit_scan" />
     </application>
 
 </manifest>

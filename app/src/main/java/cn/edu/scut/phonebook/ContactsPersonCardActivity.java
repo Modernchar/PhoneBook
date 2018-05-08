@@ -1,24 +1,32 @@
 package cn.edu.scut.phonebook;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.zxing.WriterException;
+import com.yzq.zxinglibrary.encode.CodeCreator;
 
 public class ContactsPersonCardActivity extends AppCompatActivity {
 
     ContactsPerson person;
     private TextView NameTextView;
-
+    private Context context = this;
     private RecyclerView contactsPersonPhoneNumListView;
     private LinearLayoutManager linearLayoutManager;
     private ContactsPersonPhoneNumListAdapter adapter;
 
+    private Button Bit_Card; //二维码名片
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +50,8 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
         }
 
         initRecyclerViewParts();
-
+        initButton();
+        initButtonsClickEvents();
 
 
     }
@@ -55,5 +64,31 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
         adapter = new ContactsPersonPhoneNumListAdapter(this,person.getPhoneNumbers());
 
         contactsPersonPhoneNumListView.setAdapter(adapter);
+    }
+    private void initButton(){
+        Bit_Card = (Button)findViewById(R.id.QRCodeShare_Btn);
+    }
+
+    //二维码按钮点击事件
+    private void initButtonsClickEvents(){
+        Bit_Card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bitmap bitmap = null;// 这里是获取图片Bitmap，也可以传入其他参数到Dialog中
+                String contentEtString = person.getVcard();
+                try {
+                    Bitmap logo = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                    bitmap = CodeCreator.createQRCode(contentEtString, 500, 500, logo);
+
+                } catch (WriterException e) {
+                    e.printStackTrace();
+                }
+                QRShowDialog.Builder dialogBuild = new QRShowDialog.Builder(ContactsPersonCardActivity.this);
+                dialogBuild.setBitmap(bitmap);
+                QRShowDialog dialog = dialogBuild.create();
+                dialog.setCanceledOnTouchOutside(true);// 点击外部区域关闭
+                dialog.show();
+            }
+        });
     }
 }
