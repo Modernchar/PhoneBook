@@ -10,12 +10,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -31,6 +33,8 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
     private RecyclerView ContactsPersonListView;
     private LinearLayoutManager linearLayoutManager;
     private ContactsPersonListAdapter adapter;
+
+    private SearchView searchView;
 
 
     //有这样一种说法，Fragment的生命周期里，只有在onAttach()和onDetach()之间的时候getActivity()方法才不会返回null
@@ -84,6 +88,20 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
         letterListView.setLetterListViewListener(this);
 
         TextTip = (TextView)currentActivity.findViewById(R.id.TextTipView);
+        searchView = (SearchView)currentActivity.findViewById(R.id.SearchView);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Toast.makeText(currentActivity,"字符改变",Toast.LENGTH_LONG).show();
+                return false;
+            }
+        });
 
         FloatingActionButton addContactActivityButton = (FloatingActionButton) currentActivity.findViewById(R.id.add_contact_activity_button);
         addContactActivityButton.setOnClickListener(new View.OnClickListener() {
@@ -165,7 +183,9 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
             // 如果指定的字母与联系人数组中的姓名首字母匹配，列表滑动到当前位置
             if(letter.equals(PersonNameLetter))
             {
-                linearLayoutManager.scrollToPosition(i);
+
+                // 滑动到开头，舍弃偏移值
+                linearLayoutManager.scrollToPositionWithOffset(i,0);
                 linearLayoutManager.setStackFromEnd(true);
 
                 return;
@@ -177,7 +197,6 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
 
     @Override
     public void run() {
-
 
         adapter = new ContactsPersonListAdapter(currentActivity,Persons);
         ContactsPersonListView.setAdapter(adapter);

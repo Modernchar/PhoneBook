@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ContactsPersonPhoneNumListAdapter extends RecyclerView.Adapter<ContactsPersonPhoneNumListAdapter.ViewHolder> {
 
@@ -102,8 +104,12 @@ public class ContactsPersonPhoneNumListAdapter extends RecyclerView.Adapter<Cont
     public void onBindViewHolder(ViewHolder holder, int position) {
         String num  = PhoneNums.get(position);
         holder.PhoneNum.setText(num);
-        // holder.TeleComTag.setText(); // 运营商
-        // holder.LocationTag.setText(); // 号码所在地
+
+        // 删除多余字符
+        String num_after = num.replaceAll("[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……& amp;*（）——+|{}【】‘；：”“’。，、？|-]", "");
+
+        holder.TeleComTag.setText(PhoneUtil.getCarrier(num_after,86));
+        holder.LocationTag.setText(PhoneUtil.getGeo(num_after,86)); // 号码所在地
         if(position == 0)
         {
             holder.Line.setVisibility(View.GONE);
@@ -112,7 +118,6 @@ public class ContactsPersonPhoneNumListAdapter extends RecyclerView.Adapter<Cont
         {
             holder.Line.setVisibility(View.VISIBLE);
         }
-
     }
 
     @Override

@@ -215,9 +215,17 @@ public class CallLogUtils {
 
                for(int i=0;i<len;i++){
                    Date callDate = new Date(calllogs.get(i).get_LDate());
+
+                   Pattern MatchString = Pattern.compile(name);
+
                    String na=calllogs.get(i).getName();
                    String nu=calllogs.get(i).getNumber();
-                   if(callDate.compareTo(Startdate)>=0&&callDate.compareTo(Enddate)<=0&&(name.equals(na)||(!nu.equals(""))&&name.equals(nu)))//修改3
+
+                   // 字符串匹配
+                   Matcher NameMatch = MatchString.matcher(na);
+                   Matcher NumMatch = MatchString.matcher(nu);
+
+                   if(callDate.compareTo(Startdate)>=0&&callDate.compareTo(Enddate)<=0&&(NameMatch.find()||(!nu.equals(""))&&NumMatch.find()))//修改3
                        result.add(calllogs.get(i));
                }
            }
