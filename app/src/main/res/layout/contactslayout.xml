@@ -1,21 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/ContactsLayout">
+    android:id="@+id/ContactsLayout"
+    android:background="#3bcebf">
 
     <android.support.v7.widget.SearchView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="36dp"
         android:id="@+id/SearchView"
-        android:background="#d3d3d3"/>
+        android:background="#d3d3d3"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginBottom="10dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:queryHint="搜索联系人"/>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/SearchListView"
+        android:background="#f7f7f7"/>
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:background="#f7f7f7">
 
         <RelativeLayout
             android:layout_width="match_parent"

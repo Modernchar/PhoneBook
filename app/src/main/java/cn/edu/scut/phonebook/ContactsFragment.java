@@ -5,17 +5,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +39,7 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
     private ContactsPersonListAdapter adapter;
 
     private SearchView searchView;
+    private ListView searchListView;
 
 
     //有这样一种说法，Fragment的生命周期里，只有在onAttach()和onDetach()之间的时候getActivity()方法才不会返回null
@@ -88,8 +93,17 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
         letterListView.setLetterListViewListener(this);
 
         TextTip = (TextView)currentActivity.findViewById(R.id.TextTipView);
-        searchView = (SearchView)currentActivity.findViewById(R.id.SearchView);
 
+        // 搜索部分初始化
+        searchView = (SearchView)currentActivity.findViewById(R.id.SearchView);
+        searchListView = (ListView)currentActivity.findViewById(R.id.SearchListView);
+
+        // searchView.setSubmitButtonEnabled(false);
+        searchView.setIconifiedByDefault(false);
+
+        searchListView.setVisibility(View.GONE);
+
+        // 搜索框搜索联系人
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -98,10 +112,35 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Toast.makeText(currentActivity,"字符改变",Toast.LENGTH_LONG).show();
+                if(TextUtils.isEmpty(newText))
+                {
+                    searchListView.setVisibility(View.GONE);
+                }
+                else {
+                    searchListView.setVisibility(View.VISIBLE);
+                    // 获取搜索结果
+                    final ArrayList<ContactsPerson> SearchPerson = ContactsUtils.searchContacts(Persons, newText);
+
+                    SearchListAdapter SearchAdapter = new SearchListAdapter(currentActivity,R.layout.searchlist_item,SearchPerson);
+                    searchListView.setAdapter(SearchAdapter);
+
+                    searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            ContactsPerson p =SearchPerson.get(position);
+
+                            Intent intent = new Intent(currentActivity,ContactsPersonCardActivity.class);
+                            intent.putExtra("ContactsPerson",p);
+                            currentActivity.startActivity(intent);
+                        }
+                    });
+                    // Toast.makeText(currentActivity, "字符改变", Toast.LENGTH_LONG).show();
+                }
                 return false;
             }
         });
+
+
 
         FloatingActionButton addContactActivityButton = (FloatingActionButton) currentActivity.findViewById(R.id.add_contact_activity_button);
         addContactActivityButton.setOnClickListener(new View.OnClickListener() {

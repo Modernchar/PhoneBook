@@ -77,7 +77,7 @@ public class LetterListView extends View {
         for (int i = 0; i < LetterList.length; i++) {
 
             //设置画笔属性
-            paint.setColor(Color.rgb(23, 122, 0));
+            paint.setColor(Color.parseColor("#3bcebf"));
             paint.setTypeface(Typeface.DEFAULT);//设置字体样式
             paint.setAntiAlias(true);//抗锯齿
             paint.setTextSize(30);

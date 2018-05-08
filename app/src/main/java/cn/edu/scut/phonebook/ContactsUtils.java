@@ -105,10 +105,9 @@ public class ContactsUtils {
         for(ContactsPerson person : allContacts) {
             int flag = 0;
             if(person.getName().contains(key)) {
-                resultList.add(person);
                 flag++;
             }
-            if(isNumeric(key)) {
+            else if(isNumeric(key)) {
                 for (String number : person.getNumbers()) {
                     if (number.contains(key)) {
                         person.addSearchResult(number);
