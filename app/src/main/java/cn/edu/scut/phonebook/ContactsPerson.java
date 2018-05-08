@@ -20,6 +20,7 @@ public class ContactsPerson implements Comparable,Serializable{
         this.PersonID = ID;
         this.name = name;
         this.LastNameFirstLetter = ContactsUtils.LastNameToPinyin(name);
+        this.NumberSearchResult = new ArrayList<String>();
     }
 
     public ContactsPerson(String ID,String name,ArrayList<String> Nums)
@@ -28,6 +29,7 @@ public class ContactsPerson implements Comparable,Serializable{
         this.name = name;
         this.LastNameFirstLetter = ContactsUtils.LastNameToPinyin(name);
         this.PhoneNumbers = Nums;
+        this.NumberSearchResult = new ArrayList<String>();
     }
 
     public String getID() {
@@ -70,5 +72,17 @@ public class ContactsPerson implements Comparable,Serializable{
 
     public void addSearchResult(String foundNumber) {
         this.NumberSearchResult.add(foundNumber);
+    }
+
+    public ArrayList<String> getSearchResult()
+    {
+        return this.NumberSearchResult;
+    }
+
+    public Boolean isNumberSearchResultEmpty()
+    {
+        if(this.NumberSearchResult.size()>0)
+            return false;
+        else return true;
     }
 }
