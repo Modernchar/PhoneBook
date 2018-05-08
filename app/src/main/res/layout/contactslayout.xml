@@ -12,20 +12,38 @@
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:id="@+id/SearchView"
-        android:background="#d3d3d3"
-        android:layout_marginLeft="7dp"
-        android:layout_marginRight="7dp"
+        android:background="@color/MainlyGray"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:focusable="true"
-        android:focusableInTouchMode="true"
-        app:queryHint="搜索联系人"/>
+        android:focusableInTouchMode="true" />
 
-    <ListView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/SearchListView"
-        android:background="#f7f7f7"/>
+        android:orientation="vertical"
+        android:id="@+id/SearchInfo_LinearLayout"
+        android:background="@color/MainlyGray">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:paddingLeft="30dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:id="@+id/SearchInfo_Text"/>
+
+        <View style="@style/Line"></View>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/SearchListView"
+            android:background="#f7f7f7"/>
+
+    </LinearLayout>
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

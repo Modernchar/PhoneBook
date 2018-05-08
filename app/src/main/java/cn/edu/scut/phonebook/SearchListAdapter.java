@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -25,15 +26,19 @@ public class SearchListAdapter extends ArrayAdapter<ContactsPerson> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         ContactsPerson person = getItem(position);
         View view = LayoutInflater.from(getContext()).inflate(resourceid,parent,false);
+
+        LinearLayout linearLayout = (LinearLayout)view.findViewById(R.id.Searchlist_item_LinearLayout);
         TextView Name = (TextView)view.findViewById(R.id.Searchlist_item_Name_Text);
         TextView PhoneNum = (TextView)view.findViewById(R.id.Searchlist_item_PhoneNum_Text);
         Name.setText(person.getName());
         if(!person.isNumberSearchResultEmpty())
         {
             PhoneNum.setText(person.getSearchResult().get(0));
+            person.RemoveAllSearchResult();
         }
         else{
             PhoneNum.setVisibility(View.GONE);
+            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         }
         return view;
     }

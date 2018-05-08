@@ -68,8 +68,7 @@ public class ContactsPerson implements Comparable,Serializable{
         return this.PhoneNumbers;
     }
 
-    public void setName(String s)
-    {
+    public void setName(String s) {
         this.name = s;
         //还需要加入修改联系人表的代码
     }
@@ -86,6 +85,10 @@ public class ContactsPerson implements Comparable,Serializable{
 
     public void addSearchResult(String foundNumber) {
         this.NumberSearchResult.add(foundNumber);
+    }
+
+    public void RemoveAllSearchResult() {
+        this.NumberSearchResult.clear();
     }
 
     public static class PhoneData{
