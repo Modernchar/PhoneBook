@@ -117,7 +117,7 @@ public class ContactsPerson implements Comparable,Serializable{
     }
     /*int 1 成功*/
     public int setVcard(String vcardString) {
-        if (vcardString != null) {
+        if (vcardString == null) {
             return -1;//为空
         }
         VCardParser parse = new VCardParser();
@@ -130,8 +130,11 @@ public class ContactsPerson implements Comparable,Serializable{
             return -2;//格式错误
         } catch (IOException e) {
             e.printStackTrace();
+            return -2;//格式错误
         }
-
+        if (parsed){
+            return -1;
+        }
         List<VNode> pimContacts = builder.vNodeList;
         ContactsPerson contactsPerson = null;
         for (VNode contact : pimContacts) {
