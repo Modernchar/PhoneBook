@@ -7,6 +7,8 @@
       android:orientation="vertical"
       tools:context=".AddContactsActivity">
 
+	<include layout="@layout/topbar_add_contacts"/>
+
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
@@ -77,16 +79,5 @@
 
 	</LinearLayout>
 
-	<Button
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/button_add_contacts"
-		android:text="完成"/>
-
-	<Button
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/button_cancel_add_contacts"
-		android:text="取消"/>
 
 </LinearLayout>

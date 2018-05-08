@@ -6,12 +6,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -34,6 +36,14 @@ public class AddContactsActivity extends AppCompatActivity {
 
 		//getSupportActionBar().hide();//隐藏标题栏
 		setContentView(R.layout.activity_add_contacts);
+
+		//隐藏状态栏
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			//透明状态栏
+			getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			//透明导航栏
+			getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		}
 
 		final Context thisContext = this;
 
