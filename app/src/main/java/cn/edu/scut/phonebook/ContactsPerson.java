@@ -1,6 +1,7 @@
 package cn.edu.scut.phonebook;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -26,7 +27,7 @@ public class ContactsPerson implements Comparable,Serializable{
     private ArrayList<String> PhoneNumbers;
     private ArrayList<String> NumberSearchResult;
     public ContactsPerson(){
-
+        this.PhoneNumbers = new ArrayList<>();
     }
     public ContactsPerson(String ID,String name)
     {
@@ -132,7 +133,8 @@ public class ContactsPerson implements Comparable,Serializable{
             e.printStackTrace();
             return -2;//格式错误
         }
-        if (parsed){
+
+        if (!parsed){
             return -1;
         }
         List<VNode> pimContacts = builder.vNodeList;
@@ -143,7 +145,7 @@ public class ContactsPerson implements Comparable,Serializable{
             //List<String> phoneInfoList = new ArrayList<String>();
             for (ContactStruct.PhoneData phoneData : phoneDataList) {
                 String phoneInfo = phoneData.data;
-                PhoneNumbers.add(phoneInfo);
+                this.PhoneNumbers.add(phoneInfo);
             }
             this.name = contactStruct.name;
         }

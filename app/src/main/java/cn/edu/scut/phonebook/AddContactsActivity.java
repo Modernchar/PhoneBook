@@ -202,7 +202,15 @@ public class AddContactsActivity extends AppCompatActivity {
 				ContactsPerson contactsPerson = new ContactsPerson();
 				Log.i("vcardcontent", content);
 				if(contactsPerson.setVcard(content)==1){
-					Log.i("Person", contactsPerson.getName());
+					if(contactsPerson.getName()!= null){
+						Log.i("Person", contactsPerson.getName());
+						editText_contactsName.setText(contactsPerson.getName());
+						for (String phoneinf : contactsPerson.getNumbers()){
+							editText_phoneNumber.setText(phoneinf);
+						}
+
+					}
+
 				}
 
 			}
