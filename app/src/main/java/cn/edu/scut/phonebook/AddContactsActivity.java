@@ -145,43 +145,39 @@ public class AddContactsActivity extends AppCompatActivity {
 		button_open_qr_scan.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(thisContext, "扫码", Toast.LENGTH_SHORT).show();
 
-				//TODO
-				//open the QR Scan activity
+				AndPermission.with(AddContactsActivity.this)
+						.permission(Permission.CAMERA, Permission.READ_EXTERNAL_STORAGE)
+						.onGranted(new Action() {
+							@Override
+							public void onAction(List<String> permissions) {
+								Intent intent = new Intent(AddContactsActivity.this, CaptureActivity.class);
 
-					AndPermission.with(AddContactsActivity.this)
-							.permission(Permission.CAMERA, Permission.READ_EXTERNAL_STORAGE)
-							.onGranted(new Action() {
-								@Override
-								public void onAction(List<String> permissions) {
-									Intent intent = new Intent(AddContactsActivity.this, CaptureActivity.class);
+								/*ZxingConfig是配置类  可以设置是否显示底部布局，闪光灯，相册，是否播放提示音  震动等动能
+								 * 也可以不传这个参数
+								 * 不传的话  默认都为默认不震动  其他都为true
+								 * */
 
-									/*ZxingConfig是配置类  可以设置是否显示底部布局，闪光灯，相册，是否播放提示音  震动等动能
-									 * 也可以不传这个参数
-									 * 不传的话  默认都为默认不震动  其他都为true
-									 * */
+								ZxingConfig config = new ZxingConfig();
+								config.setPlayBeep(true);
+								config.setShake(true);
+								intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
 
-									ZxingConfig config = new ZxingConfig();
-									config.setPlayBeep(true);
-									config.setShake(true);
-									intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
+								startActivityForResult(intent, REQUEST_CODE_SCAN);
+							}
+						})
+						.onDenied(new Action() {
+							@Override
+							public void onAction(List<String> permissions) {
+								Uri packageURI = Uri.parse("package:" + getPackageName());
+								Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
+								intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-									startActivityForResult(intent, REQUEST_CODE_SCAN);
-								}
-							})
-							.onDenied(new Action() {
-								@Override
-								public void onAction(List<String> permissions) {
-									Uri packageURI = Uri.parse("package:" + getPackageName());
-									Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
-									intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+								startActivity(intent);
 
-									startActivity(intent);
-
-									Toast.makeText(AddContactsActivity.this, "没有权限无法扫描呦", Toast.LENGTH_LONG).show();
-								}
-							}).start();
+								Toast.makeText(AddContactsActivity.this, "没有权限无法扫描呦", Toast.LENGTH_LONG).show();
+							}
+						}).start();
 			}
 		});
 
@@ -198,7 +194,7 @@ public class AddContactsActivity extends AppCompatActivity {
 
 				String content = data.getStringExtra(Constant.CODED_CONTENT);
 				Log.i("vcardcontent", content);
-				Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
 				ContactsPerson contactsPerson = new ContactsPerson();
 				Log.i("vcardcontent", content);
 				if(contactsPerson.setVcard(content)==1){
