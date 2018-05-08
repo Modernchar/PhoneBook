@@ -46,7 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_margin="16dp"/>
+            android:layout_margin="16dp"
+            android:src="@drawable/add_icon"/>
 
     </RelativeLayout>
 
