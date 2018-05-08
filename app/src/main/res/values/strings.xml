@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PhoneBook</string>
+    <string name="title_activity_bit_scan">Bit_scan</string>
 </resources>
