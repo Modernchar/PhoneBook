@@ -6,8 +6,6 @@ group = 'com.github.yuzhiqiang1993'
 android {
     compileSdkVersion 27
     //buildToolsVersion '27.0.3'
-
-
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 25
@@ -16,8 +14,7 @@ android {
         vectorDrawables.useSupportLibrary = true
 
     }
-
-
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {

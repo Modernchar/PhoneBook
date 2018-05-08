@@ -80,6 +80,7 @@ public class ContactsPerson implements Comparable,Serializable{
         return this.PhoneNumbers;
     }
 
+
     public ArrayList<String> getEmails() {
         return this.emails;
     }
@@ -102,6 +103,10 @@ public class ContactsPerson implements Comparable,Serializable{
 
     public void addSearchResult(String foundNumber) {
         this.NumberSearchResult.add(foundNumber);
+    }
+
+    public void RemoveAllSearchResult() {
+        this.NumberSearchResult.clear();
     }
 
     public static class PhoneData{

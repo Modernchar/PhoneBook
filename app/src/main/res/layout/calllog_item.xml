@@ -13,34 +13,37 @@
 
         <RelativeLayout
             android:id="@+id/RL"
+            android:layout_marginBottom="1dp"
             android:layout_width="match_parent"
+            android:background="@color/MainlyGray"
             android:layout_height="60dp">
+
 
             <TextView
                 android:id="@+id/calllog_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="28dp"
+                android:layout_marginLeft="40dp"
                 android:layout_marginTop="7dp"
-                android:text="1"
+                android:text="陈浩鑫"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/calllog_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="28dp"
+                android:layout_marginLeft="40dp"
                 android:layout_marginTop="32dp"
-                android:text="2"
+                android:text="15322221111"
                 android:textSize="14sp" />
 
             <ImageView
                 android:text="3"
                 android:id="@+id/calllog_type"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
@@ -50,7 +53,7 @@
                 android:id="@+id/calllog_lDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="34dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginTop="7dp"
                 android:gravity="right"
                 android:text="4"
@@ -60,7 +63,7 @@
                 android:id="@+id/calllog_duration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="34dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginTop="32dp"
                 android:gravity="right"
                 android:text="5"

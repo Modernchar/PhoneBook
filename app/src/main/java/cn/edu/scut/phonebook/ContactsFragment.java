@@ -9,6 +9,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -19,6 +20,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +43,8 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
 
     private SearchView searchView;
     private ListView searchListView;
+    private LinearLayout searchInfoLinearLayout;
+    private TextView searchInfoTextView;
 
 
     //有这样一种说法，Fragment的生命周期里，只有在onAttach()和onDetach()之间的时候getActivity()方法才不会返回null
@@ -97,11 +102,15 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
         // 搜索部分初始化
         searchView = (SearchView)currentActivity.findViewById(R.id.SearchView);
         searchListView = (ListView)currentActivity.findViewById(R.id.SearchListView);
+        searchInfoLinearLayout = (LinearLayout)currentActivity.findViewById(R.id.SearchInfo_LinearLayout);
+        searchInfoTextView = (TextView)currentActivity.findViewById(R.id.SearchInfo_Text);
 
-        // searchView.setSubmitButtonEnabled(false);
-        searchView.setIconifiedByDefault(false);
 
-        searchListView.setVisibility(View.GONE);
+        searchView.setIconifiedByDefault(false); // 禁止收缩成图标
+        searchView.clearFocus(); // 清除焦点
+        setSearchViewHintTextSize();
+        searchInfoLinearLayout.setVisibility(View.GONE);
+
 
         // 搜索框搜索联系人
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -114,13 +123,14 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
             public boolean onQueryTextChange(String newText) {
                 if(TextUtils.isEmpty(newText))
                 {
-                    searchListView.setVisibility(View.GONE);
+                    searchInfoLinearLayout.setVisibility(View.GONE);
                 }
                 else {
-                    searchListView.setVisibility(View.VISIBLE);
+                    searchInfoLinearLayout.setVisibility(View.VISIBLE);
                     // 获取搜索结果
                     final ArrayList<ContactsPerson> SearchPerson = ContactsUtils.searchContacts(Persons, newText);
 
+                    searchInfoTextView.setText("找到"+ SearchPerson.size()+"位联系人");
                     SearchListAdapter SearchAdapter = new SearchListAdapter(currentActivity,R.layout.searchlist_item,SearchPerson);
                     searchListView.setAdapter(SearchAdapter);
 
@@ -242,4 +252,12 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
     }
 
 
+    public void setSearchViewHintTextSize()
+    {
+        EditText textView = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+
+        textView.setHintTextColor(ContextCompat.getColor(currentActivity, R.color.UnselectedGray));
+        textView.setTextSize(16);
+        searchView.setQueryHint(currentActivity.getString(R.string.searchContactPerson));
+    }
 }
