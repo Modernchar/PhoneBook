@@ -63,4 +63,16 @@ public class CallRecordFragment extends Fragment {
         CalllogAdapter adapter = new CalllogAdapter(currentActivity,calllogList);
         recyclerView.setAdapter(adapter);
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        //获取通话记录信息
+        calllogList=CallLogUtils.GetRecords(currentActivity);
+
+        RecyclerView recyclerView = (RecyclerView) currentActivity.findViewById(R.id.recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(currentActivity);
+        recyclerView.setLayoutManager(layoutManager);
+        CalllogAdapter adapter = new CalllogAdapter(currentActivity,calllogList);
+        recyclerView.setAdapter(adapter);
+    }
 }
