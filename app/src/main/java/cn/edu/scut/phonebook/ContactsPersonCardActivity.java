@@ -27,6 +27,8 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
     private ContactsPersonPhoneNumListAdapter adapter;
 
     private Button Bit_Card; //二维码名片
+    private Button EditContactsButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +69,7 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
     }
     private void initButton(){
         Bit_Card = (Button)findViewById(R.id.QRCodeShare_Btn);
+        EditContactsButton = (Button)findViewById(R.id.EditContacts_Btn);
     }
 
     //二维码按钮点击事件
@@ -88,6 +91,18 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
                 QRShowDialog dialog = dialogBuild.create();
                 dialog.setCanceledOnTouchOutside(true);// 点击外部区域关闭
                 dialog.show();
+            }
+        });
+
+        EditContactsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ContactsPersonCardActivity.this, EditContactsActivity.class);
+                intent.putExtra("ID", person.getID());
+                intent.putExtra("name", person.getName());
+                intent.putExtra("phone", person.getPhoneNumbers().get(0));
+                intent.putExtra("email", person.getEmails().get(0));
+                startActivity(intent);
             }
         });
     }

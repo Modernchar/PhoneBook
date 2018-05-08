@@ -104,29 +104,7 @@ public class AddContactsActivity extends AppCompatActivity {
 				NumList.add(phone2);
 				ContactsPerson person = new ContactsPerson(id, name, NumList);*/
 
-					ContentValues values = new ContentValues();
-					Uri rawContactUri = thisContext.getContentResolver().insert(ContactsContract.RawContacts.CONTENT_URI, values);
-					long rawContactId = ContentUris.parseId(rawContactUri);
-
-					values.clear();
-					values.put(ContactsContract.Data.RAW_CONTACT_ID, rawContactId);
-					values.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE);
-					values.put(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME, name);
-					thisContext.getContentResolver().insert(ContactsContract.Data.CONTENT_URI, values);
-
-					values.clear();
-					values.put(ContactsContract.Data.RAW_CONTACT_ID, rawContactId);
-					values.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
-					values.put(ContactsContract.CommonDataKinds.Phone.NUMBER, phone);
-					values.put(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE);
-					thisContext.getContentResolver().insert(ContactsContract.Data.CONTENT_URI, values);
-
-					values.clear();
-					values.put(ContactsContract.Data.RAW_CONTACT_ID, rawContactId);
-					values.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE);
-					values.put(ContactsContract.CommonDataKinds.Email.DATA, email);
-					values.put(ContactsContract.CommonDataKinds.Email.TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK);
-					thisContext.getContentResolver().insert(ContactsContract.Data.CONTENT_URI, values);
+					ContactsUtils.insertContacts(thisContext, name, phone, email);
 
 					Toast.makeText(thisContext, "添加成功", Toast.LENGTH_SHORT).show();
 

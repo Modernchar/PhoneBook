@@ -26,7 +26,10 @@
         </activity>
         <activity
             android:name=".AddContactsActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".EditContactsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".ContactsPersonCardActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

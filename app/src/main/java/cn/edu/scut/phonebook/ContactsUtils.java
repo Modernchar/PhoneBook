@@ -3,7 +3,11 @@ package cn.edu.scut.phonebook;
 
 
 import android.app.Activity;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.ContactsContract;
 import android.util.Log;
 
@@ -62,6 +66,8 @@ public class ContactsUtils {
                     ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + ID, null, null);
             ArrayList<String> PhoneNums = new ArrayList<String>();
 
+
+
             while (PhoneNumsCursor.moveToNext()) {
                 String num = PhoneNumsCursor.getString(PhoneNumsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
@@ -69,7 +75,29 @@ public class ContactsUtils {
             }
             PhoneNumsCursor.close();
 
-            ContactsPerson person = new ContactsPerson(ID,name,PhoneNums);
+            //获取联系人所有邮箱.
+            ArrayList<String> emailsArray = new ArrayList<>();
+            Cursor emails = currentActivity.getContentResolver().query(
+                    ContactsContract.CommonDataKinds.Email.CONTENT_URI,
+                    null,
+                    ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = " + ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
+                    null, null);
+
+            while (emails.moveToNext()) {
+                String email = emails
+                        .getString(emails
+                                .getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+                if (!email.isEmpty()) {
+                    emailsArray.add(email);
+                }
+            }
+            if (emailsArray.size() > 0) {
+                Log.i("emails", emailsArray.get(0));
+            }
+
+            emails.close();
+
+            ContactsPerson person = new ContactsPerson(ID, name, PhoneNums, emailsArray);
             Persons.add(person);
 
 
@@ -78,6 +106,55 @@ public class ContactsUtils {
 
         Collections.sort(Persons);
         return Persons;
+    }
+
+    public static void insertContacts(Context context, String name, String phone, String email) {
+        ContentValues values = new ContentValues();
+        Uri rawContactUri = context.getContentResolver().insert(ContactsContract.RawContacts.CONTENT_URI, values);
+        long rawContactId = ContentUris.parseId(rawContactUri);
+
+        values.clear();
+        values.put(ContactsContract.Data.RAW_CONTACT_ID, rawContactId);
+        values.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE);
+        values.put(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME, name);
+        context.getContentResolver().insert(ContactsContract.Data.CONTENT_URI, values);
+
+        values.clear();
+        values.put(ContactsContract.Data.RAW_CONTACT_ID, rawContactId);
+        values.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
+        values.put(ContactsContract.CommonDataKinds.Phone.NUMBER, phone);
+        values.put(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE);
+        context.getContentResolver().insert(ContactsContract.Data.CONTENT_URI, values);
+
+        values.clear();
+        values.put(ContactsContract.Data.RAW_CONTACT_ID, rawContactId);
+        values.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE);
+        values.put(ContactsContract.CommonDataKinds.Email.DATA, email);
+        values.put(ContactsContract.CommonDataKinds.Email.TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK);
+        context.getContentResolver().insert(ContactsContract.Data.CONTENT_URI, values);
+    }
+
+    //更改数据库中联系人
+    public static void updateContact(Context context, String ContactId, String name, String number, String email) {
+        Log.i("huahua", name);
+        ContentValues values = new ContentValues();
+        // 更新姓名
+        values.put(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME, name);
+        context.getContentResolver().update(ContactsContract.Data.CONTENT_URI, values,
+                ContactsContract.Data.RAW_CONTACT_ID + "=? and " + ContactsContract.Data.MIMETYPE  + "=?",
+                new String[] { ContactId, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE });
+        //更新电话
+        values.clear();
+        values.put(ContactsContract.CommonDataKinds.Phone.NUMBER, number);
+        context.getContentResolver().update(ContactsContract.Data.CONTENT_URI, values,
+                ContactsContract.Data.RAW_CONTACT_ID + "=? and " + ContactsContract.Data.MIMETYPE  + "=?",
+                new String[] { ContactId, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE});
+        //更新Email
+        values.clear();
+        values.put(ContactsContract.CommonDataKinds.Email.DATA, email);
+        context.getContentResolver().update(ContactsContract.Data.CONTENT_URI, values,
+                ContactsContract.Data.RAW_CONTACT_ID + "=? and " + ContactsContract.Data.MIMETYPE + "=?",
+                new String[] { ContactId, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE});
     }
 
 
