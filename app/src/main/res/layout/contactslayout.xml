@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,46 +11,53 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/SearchView"
-        android:background="#d3d3d3"></android.support.v7.widget.SearchView>
+        android:background="#d3d3d3"/>
 
-    <RelativeLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="right">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/ContactsPersonListView"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"></android.support.v7.widget.RecyclerView>
+            android:orientation="horizontal"
+            android:gravity="right">
 
-        <cn.edu.scut.phonebook.LetterListView
-            android:id="@+id/LetterListView"
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="#f7f7f7"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/ContactsPersonListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"/>
 
-        <TextView
-            android:id="@+id/TextTipView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:textSize="50dp"
-            android:textColor="#565656"/>
+            <cn.edu.scut.phonebook.LetterListView
+                android:id="@+id/LetterListView"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="#f7f7f7"/>
+
+            <TextView
+                android:id="@+id/TextTipView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="50dp"
+                android:textColor="#565656"/>
+
+        </RelativeLayout>
 
         <android.support.design.widget.FloatingActionButton
+            app:layout_behavior="@string/floating_button_behavior"
             android:id="@+id/add_contact_activity_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
+            android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:src="@drawable/add_icon"/>
 
-    </RelativeLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
 
     <TextView
         android:layout_width="match_parent"

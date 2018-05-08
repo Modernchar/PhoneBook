@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">PhoneBook</string>
     <string name="title_activity_bit_scan">Bit_scan</string>
+    <string name="floating_button_behavior">cn.edu.scut.phonebook.FloatingButtonBehavior</string>
 </resources>
