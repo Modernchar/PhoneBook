@@ -18,16 +18,25 @@
 		android:text="取消"/>
 
 	<LinearLayout
-		android:layout_width="fill_parent"
+		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:gravity="end">
 
 		<Button
+			android:layout_width="40dp"
+			android:layout_height="50dp"
+			android:background="@drawable/btnwithoutstyle"
+			android:id="@+id/button_open_qr_scan"
+			android:textSize="15sp"
+			android:textColor="#FFFFFF"
+			android:text="扫码"/>
+
+		<Button
 			android:layout_width="80dp"
 			android:layout_height="50dp"
-			android:textSize="15sp"
 			android:background="@drawable/btnwithoutstyle"
 			android:id="@+id/button_add_contacts"
+			android:textSize="15sp"
 			android:textColor="#FFFFFF"
 			android:text="完成"/>
 

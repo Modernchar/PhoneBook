@@ -27,6 +27,7 @@ public class AddContactsActivity extends AppCompatActivity {
 	EditText editText_email;
 	Button button_add_contacts;
 	Button button_cancel_add_contacts;
+	Button button_open_qr_scan;
 
 	Toast toast = null;
 
@@ -62,6 +63,7 @@ public class AddContactsActivity extends AppCompatActivity {
 		editText_email = (EditText)findViewById(R.id.editText_email);
 		button_add_contacts = (Button)findViewById(R.id.button_add_contacts);
 		button_cancel_add_contacts = (Button)findViewById(R.id.button_cancel_add_contacts);
+		button_open_qr_scan = (Button)findViewById(R.id.button_open_qr_scan);
 
 		button_add_contacts.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -123,6 +125,16 @@ public class AddContactsActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				finish();
+			}
+		});
+
+		button_open_qr_scan.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(thisContext, "扫码", Toast.LENGTH_SHORT).show();
+
+				//TODO
+				//open the QR Scan activity
 			}
 		});
 	}
