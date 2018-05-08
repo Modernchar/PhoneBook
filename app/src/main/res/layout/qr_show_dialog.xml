@@ -9,10 +9,16 @@
         android:id="@+id/img_qrcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="二维码" />
+        android:contentDescription="二维码"
+        android:padding="30dp"
+        android:paddingBottom="30dp"
+        android:background="#FFFFFF"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:id="@+id/ContactsPersonNameTextView_for_bitcode"
         android:text="联系人二维码"/>
 
 </LinearLayout>

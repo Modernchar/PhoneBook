@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/topbar_calllog"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -12,7 +14,7 @@
             android:id="@+id/sort_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#E0E0E0"
+            android:background="@color/MainlyGray"
             android:scrollbars="vertical" />
 
         <Button
@@ -23,6 +25,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
             android:text="delete"
+            android:textColor="#FFFFFF"
             android:background="@drawable/btn_red_down"/>
 
     </RelativeLayout>

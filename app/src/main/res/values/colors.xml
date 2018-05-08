@@ -7,4 +7,5 @@
     <color name="MainlyGray">#f7f7f7</color>
     <color name="MainlyBlack">#2e2e2e</color>
     <color name="UnselectedGray">#b4b4b4</color>
+    <color name="DeleteRed">#fe1e1e</color>
 </resources>

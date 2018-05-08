@@ -99,6 +99,7 @@ public class FindRecordsActivity extends AppCompatActivity {
         editText_name=(EditText)findViewById(R.id.editText_findName);
         button_find = (Button)findViewById(R.id.button_find2);
 
+        editText_name.setText(searchCondition.GetName());
 
         if(searchCondition.GetEndTime()!=null){
             Enddate = searchCondition.GetEndTime();
@@ -251,6 +252,7 @@ public class FindRecordsActivity extends AppCompatActivity {
         editText_name=(EditText)findViewById(R.id.editText_findName);
         button_find = (Button)findViewById(R.id.button_find2);
 
+        editText_name.setText(searchCondition.GetName());
 
         if(searchCondition.GetEndTime()!=null){
             Enddate = searchCondition.GetEndTime();

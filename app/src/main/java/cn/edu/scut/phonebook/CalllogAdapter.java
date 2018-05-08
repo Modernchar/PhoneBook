@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +32,9 @@ public class CalllogAdapter extends RecyclerView.Adapter<CalllogAdapter.ViewHold
         TextView duration;
         ImageView more_inf;
         View delete;
+        TextView Location;
+        TextView Carrier;
+        View Border; // 分割线
 
         public ViewHolder(View view) {
             super(view);
@@ -39,6 +44,9 @@ public class CalllogAdapter extends RecyclerView.Adapter<CalllogAdapter.ViewHold
             lDate = (TextView) view.findViewById(R.id.calllog_lDate);
             duration = (TextView) view.findViewById(R.id.calllog_duration);
             more_inf = (ImageView) view.findViewById(R.id.more_inf);
+            Location = (TextView) view.findViewById(R.id.calllog_location);
+            Carrier = (TextView) view.findViewById(R.id.calllog_carri);
+            Border = view.findViewById(R.id.calllog_border);
         }
     }
 
@@ -183,16 +191,46 @@ public class CalllogAdapter extends RecyclerView.Adapter<CalllogAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Calllog calllog = mCalllogList.get(position);
+        final Calllog calllog = mCalllogList.get(position);
         String na=calllog.getName();
         if(na.length()>12){
             na=na.substring(0,11)+"...";
         }
+
+        // 删除多余字符
+        String num = calllog.getNumber().replaceAll("[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……& amp;*（）——+|{}【】‘；：”“’。，、？|-]", "");
+        String name = calllog.getName().replaceAll("[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……& amp;*（）——+|{}【】‘；：”“’。，、？|-]", "");
+
         holder.name.setText(na);
         holder.number.setText(calllog.getNumber());
         holder.type.setImageResource(calllog.getType());
         holder.lDate.setText(calllog.getLDate());
         holder.duration.setText(calllog.getDuration());
+        if(!num.equals("")) {
+            holder.Location.setText(PhoneUtil.getGeo(num, 86));
+            holder.Carrier.setText(PhoneUtil.getCarrier(num, 86));
+            holder.Border.setVisibility(View.VISIBLE);
+
+            holder.more_inf.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    ArrayList<ContactsPerson> persons = ContactsUtils.getContactsPersonList(currentActivity);
+
+                    ContactsPerson person = ContactsUtils.findPersonByName(calllog.getName(),persons);
+
+                    Intent intent = new Intent(view.getContext(),ContactsPersonCardActivity.class);
+                    intent.putExtra("ContactsPerson",person);
+                    view.getContext().startActivity(intent);
+                };
+            });
+        }
+        else
+        {
+            holder.Location.setText(PhoneUtil.getGeo(name, 86));
+            holder.Carrier.setText(PhoneUtil.getCarrier(name, 86));
+            holder.Border.setVisibility(View.GONE);
+        }
     }
 
     @Override

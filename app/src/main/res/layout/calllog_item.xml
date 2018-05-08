@@ -5,11 +5,10 @@
     android:layout_height="wrap_content">
 
     <cn.edu.scut.phonebook.SwipeLayout
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="2dp"
+        android:layout_marginBottom="1dp"
         android:layout_width="match_parent"
-        android:background="#ffffff"
-        android:layout_height="60dp" >
+        android:background="@color/MainlyGray"
+        android:layout_height="58dp" >
 
         <RelativeLayout
             android:id="@+id/RL"
@@ -30,15 +29,47 @@
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/calllog_number"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="32dp"
-                android:text="15322221111"
-                android:textSize="14sp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/calllog_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="15322221111"
+                    android:textSize="12sp" />
+
+                <View
+                    android:id="@+id/calllog_border"
+                    android:layout_width="1dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/MainlyBlack"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="6dp"/>
+
+                <TextView
+                    android:id="@+id/calllog_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="广东省广州市"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/calllog_carri"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="联通"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="5dp"/>
+            </LinearLayout>
 
             <ImageView
                 android:text="3"
@@ -53,7 +84,7 @@
                 android:id="@+id/calllog_lDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="50dp"
                 android:layout_marginTop="7dp"
                 android:gravity="right"
                 android:text="4"
@@ -63,7 +94,7 @@
                 android:id="@+id/calllog_duration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="50dp"
                 android:layout_marginTop="32dp"
                 android:gravity="right"
                 android:text="5"
@@ -73,7 +104,8 @@
                 android:id="@+id/more_inf"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginLeft="332dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/inf"
                 android:layout_gravity="center_vertical" />

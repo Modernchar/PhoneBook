@@ -38,7 +38,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".Bit_scan"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name="cn.edu.scut.phonebook.CalllogSort"/>
+        <activity android:name="cn.edu.scut.phonebook.CalllogSort"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>

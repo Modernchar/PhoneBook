@@ -201,4 +201,16 @@ public class ContactsUtils {
         return resultList;
     }
 
+    public static ContactsPerson findPersonByName(String name,ArrayList<ContactsPerson> persons){
+        for(ContactsPerson person : persons)
+        {
+            if(name.equals(person.getName()))
+            {
+                return person;
+            }
+        }
+
+        return new ContactsPerson();
+    }
+
 }

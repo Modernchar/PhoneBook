@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:paddingTop="20dp"
+    android:background="@color/MainColor">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="通话记录详情"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:paddingTop="15dp"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="30dp"/>
+
+</RelativeLayout>

@@ -26,6 +26,7 @@ public class CallRecordFragment extends Fragment {
     private Activity currentActivity;
     private List<Calllog> calllogList = new ArrayList<>();
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

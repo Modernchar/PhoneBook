@@ -28,6 +28,7 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
 
     private Button Bit_Card; //二维码名片
     private Button EditContactsButton;
+    private Button CallLogBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,6 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
         person = (ContactsPerson)intent.getSerializableExtra("ContactsPerson");
 
         NameTextView = (TextView)findViewById(R.id.ContactsPersonNameTextView);
-
 
         NameTextView.setText(person.getName());
 
@@ -70,10 +70,13 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
     private void initButton(){
         Bit_Card = (Button)findViewById(R.id.QRCodeShare_Btn);
         EditContactsButton = (Button)findViewById(R.id.EditContacts_Btn);
+        CallLogBtn = (Button)findViewById(R.id.ShowCallRecord_Btn);
     }
 
-    //二维码按钮点击事件
+
     private void initButtonsClickEvents(){
+
+        //二维码按钮点击事件
         Bit_Card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,7 +104,20 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
                 intent.putExtra("ID", person.getID());
                 intent.putExtra("name", person.getName());
                 intent.putExtra("phone", person.getPhoneNumbers().get(0));
-                intent.putExtra("email", person.getEmails().get(0));
+
+                if(!person.isEmailEmpty())
+                {
+                    intent.putExtra("email", person.getEmails().get(0));
+                }
+                startActivity(intent);
+            }
+        });
+
+        CallLogBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ContactsPersonCardActivity.this,CalllogSort.class);
+                intent.putExtra("key",person.getName());
                 startActivity(intent);
             }
         });

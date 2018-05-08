@@ -37,6 +37,7 @@ public class ContactsPerson implements Comparable,Serializable{
         this.name = name;
         this.LastNameFirstLetter = ContactsUtils.LastNameToPinyin(name);
         this.NumberSearchResult = new ArrayList<String>();
+        this.emails = new ArrayList<>();
     }
 
     public ContactsPerson(String ID,String name,ArrayList<String> Nums)
@@ -46,6 +47,7 @@ public class ContactsPerson implements Comparable,Serializable{
         this.LastNameFirstLetter = ContactsUtils.LastNameToPinyin(name);
         this.PhoneNumbers = Nums;
         this.NumberSearchResult = new ArrayList<String>();
+        this.emails = new ArrayList<>();
     }
 
     public ContactsPerson(String ID,String name,ArrayList<String> Nums, ArrayList<String> emails)
@@ -80,13 +82,11 @@ public class ContactsPerson implements Comparable,Serializable{
         return this.PhoneNumbers;
     }
 
-
     public ArrayList<String> getEmails() {
         return this.emails;
     }
 
-    public void setName(String s)
-    {
+    public void setName(String s) {
         this.name = s;
         //还需要加入修改联系人表的代码
     }
@@ -181,6 +181,13 @@ public class ContactsPerson implements Comparable,Serializable{
     public Boolean isNumberSearchResultEmpty()
     {
         if(this.NumberSearchResult.size()>0)
+            return false;
+        else return true;
+    }
+
+    public Boolean isEmailEmpty()
+    {
+        if(this.emails.size()>0)
             return false;
         else return true;
     }

@@ -17,6 +17,6 @@ public class Bit_scan extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_bit_scan);
+        // setContentView(R.layout.activity_bit_scan);
     }
 }
