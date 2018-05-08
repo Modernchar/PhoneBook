@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,6 +34,8 @@ public class MyInfoFragment extends Fragment {
     Button button_endDate;
     Button button_find;
     EditText editline;
+    TextView call_times;
+    TextView total_duration;
     String name;//按姓名查找
     private List<Calllog> calllogList = new ArrayList<>();
 
@@ -62,10 +65,17 @@ public class MyInfoFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         button_startDate = (Button) currentActivity.findViewById(R.id.button_startDate);
         button_endDate = (Button) currentActivity.findViewById(R.id.button_endDate);
         button_find = (Button) currentActivity.findViewById(R.id.button_find);
         editline = (EditText) currentActivity.findViewById(R.id.editText);
+        call_times = (TextView) currentActivity.findViewById(R.id.current_times);
+        total_duration = (TextView) currentActivity.findViewById(R.id.current_duration);
+
+        CallLogUtils callLogUtils = new CallLogUtils();
+        call_times.setText(callLogUtils.GetCurrentMonthNum(callLogUtils.GetRecords(currentActivity)));
+        total_duration.setText(callLogUtils.GetCurrentMonthDuration(callLogUtils.GetRecords(currentActivity)));
 
         button_startDate.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){//设置开始时间

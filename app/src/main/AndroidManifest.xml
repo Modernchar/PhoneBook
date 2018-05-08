@@ -30,6 +30,7 @@
         <activity
             android:name=".FindRecordsActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity android:name="cn.edu.scut.phonebook.CalllogSort"></activity>
     </application>
 
 </manifest>
