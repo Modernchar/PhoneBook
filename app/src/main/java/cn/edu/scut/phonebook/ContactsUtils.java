@@ -88,9 +88,6 @@ public class ContactsUtils {
                     emailsArray.add(email);
                 }
             }
-            if (emailsArray.size() > 0) {
-                Log.i("emails", emailsArray.get(0));
-            }
 
             emails.close();
 
