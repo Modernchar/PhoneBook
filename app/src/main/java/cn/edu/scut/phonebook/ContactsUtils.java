@@ -110,7 +110,7 @@ public class ContactsUtils {
         values.clear();
         values.put(ContactsContract.Data.RAW_CONTACT_ID, rawContactId);
         values.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE);
-        values.put(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME, name);
+        values.put(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, name);
         context.getContentResolver().insert(ContactsContract.Data.CONTENT_URI, values);
 
         values.clear();
@@ -130,10 +130,9 @@ public class ContactsUtils {
 
     //更改数据库中联系人
     public static void updateContact(Context context, String ContactId, String name, String number, String email) {
-        Log.i("huahua", name);
         ContentValues values = new ContentValues();
         // 更新姓名
-        values.put(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME, name);
+        values.put(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, name);
         context.getContentResolver().update(ContactsContract.Data.CONTENT_URI, values,
                 ContactsContract.Data.RAW_CONTACT_ID + "=? and " + ContactsContract.Data.MIMETYPE  + "=?",
                 new String[] { ContactId, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE });
