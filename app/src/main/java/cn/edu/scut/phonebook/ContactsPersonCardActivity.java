@@ -131,9 +131,10 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
         CallLogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ContactsPersonCardActivity.this,CalllogSort.class);
-                intent.putExtra("key",person.getName());
+                Intent intent = new Intent(ContactsPersonCardActivity.this, CalllogSort.class);
+                intent.putExtra("key", person.getName());
                 startActivity(intent);
+            }});
         Collected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
