@@ -97,9 +97,32 @@ public class CallRecordFragment extends Fragment {
         //获取通话记录信息
         calllogList=CallLogUtils.GetRecords(currentActivity);
 
-        RecyclerView recyclerView = (RecyclerView) currentActivity.findViewById(R.id.recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(currentActivity);
+        recyclerView = (RecyclerView) currentActivity.findViewById(R.id.recycler_view);
+        layoutManager = new LinearLayoutManager(currentActivity);
         recyclerView.setLayoutManager(layoutManager);
+        final FloatingActionButton uptt = (FloatingActionButton) currentActivity.findViewById(R.id.uptt);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            boolean loading = true;
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (loading) {
+                    if (layoutManager.findFirstVisibleItemPosition() >= 9) {
+                        uptt.setVisibility(View.VISIBLE);
+                    } else {
+                        uptt.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+
+        uptt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerView.smoothScrollToPosition(0);
+            }
+        });
+
         CalllogAdapter adapter = new CalllogAdapter(currentActivity,calllogList);
         recyclerView.setAdapter(adapter);
     }
