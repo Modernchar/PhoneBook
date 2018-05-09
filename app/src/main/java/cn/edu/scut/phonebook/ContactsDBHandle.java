@@ -20,14 +20,13 @@ public class ContactsDBHandle {
             while(cursor.moveToNext()) {
                 String ID = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
                 String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                addContant(ID,name,false,null);
+                addContant(name,false,null);
             }
             cursor.close();
         }
     }
-    public void addContant(String id, String name, boolean importance, Date brith){
+    public void addContant( String name, boolean importance, Date brith){
         ContactsDB contactsDB = new ContactsDB();
-        contactsDB.setId(id);
         contactsDB.setName(name);
         contactsDB.setImportance(importance);
         contactsDB.setBirthday(brith);
@@ -35,12 +34,16 @@ public class ContactsDBHandle {
     }
     public void switchimportance(String name){
         ContactsDB contactsDB = new ContactsDB();
-        contactsDB.setImportance(!getimportance(name));
+        if(getimportance(name)){
+            contactsDB.setToDefault("importance");
+        }else{
+            contactsDB.setImportance(true);
+        }
         contactsDB.updateAll("name = ?",name);
     }
     public boolean getimportance(String name){
         boolean isimportance = false;
-        List<ContactsDB> contactsDBS = DataSupport.limit(1).select("importance").where("name = ?",name).find(ContactsDB.class);
+        List<ContactsDB> contactsDBS = DataSupport.where("name = ?",name).find(ContactsDB.class);
         for(ContactsDB contactsDB:contactsDBS) {
             isimportance = contactsDB.isImportance();
         }
@@ -48,7 +51,7 @@ public class ContactsDBHandle {
     }
     public Date getDate(String name){
         Date date = null;
-        List<ContactsDB>  contactsDBS = DataSupport.select("birthday").where("name = ?",name).find(ContactsDB.class);
+        List<ContactsDB>  contactsDBS = DataSupport.where("name = ?",name).find(ContactsDB.class);
         for(ContactsDB contactsDB:contactsDBS){
             date = contactsDB.getBirthday();
         }

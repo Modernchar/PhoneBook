@@ -5,13 +5,13 @@ import org.litepal.crud.DataSupport;
 import java.util.Date;
 
 public class ContactsDB extends DataSupport{
-    private String id;
+    //private String id;
     private String name;
     private boolean importance;
     private Date birthday;
-    public String getId(){
+    /*public String getId(){
         return id;
-    }
+    }*/
 
     public String getName() {
         return name;
@@ -25,9 +25,9 @@ public class ContactsDB extends DataSupport{
         return birthday;
     }
 
-    public void setId(String id) {
+    /*public void setId(String id) {
         this.id = id;
-    }
+    }*/
 
     public void setImportance(boolean importance) {
         this.importance = importance;

@@ -33,6 +33,7 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
     private RecyclerView contactsPersonPhoneNumListView;
     private LinearLayoutManager linearLayoutManager;
     private ContactsPersonPhoneNumListAdapter adapter;
+    static ContactsDBHandle contactsDBHandle = new ContactsDBHandle();
 
     private Button Bit_Card; //二维码名片
 
@@ -40,7 +41,7 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        LitePal.getDatabase(); //初始化数据库
         setContentView(R.layout.activity_contacts_person_card);
 
         Intent intent = getIntent();
@@ -74,10 +75,15 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
         adapter = new ContactsPersonPhoneNumListAdapter(this,person.getPhoneNumbers());
 
         contactsPersonPhoneNumListView.setAdapter(adapter);
+
     }
     private void initButton(){
         Bit_Card = (Button)findViewById(R.id.QRCodeShare_Btn);
         Collected = (Button)findViewById(R.id.Collected_Btn);
+        contactsDBHandle.Create(ContactsPersonCardActivity.this);//创建数据表
+        if(ContactsPersonCardActivity.contactsDBHandle.getimportance(ContactsPersonCardActivity.this.person.getName())){
+            Collected.setText("已收藏");//判断是否重要
+        };
     }
 
     //二维码按钮点击事件
@@ -104,17 +110,20 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
         Collected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LitePal.getDatabase();
-                //数据库查询
-                ContactsDBHandle contactsDBHandle = new ContactsDBHandle();
-                contactsDBHandle.Create(ContactsPersonCardActivity.this);
-                Date date = new Date(System.currentTimeMillis());
-                contactsDBHandle.setDate("洪浩强",date);
+                /*
                 List<ContactsDB> contactsDBS = DataSupport.findAll(ContactsDB.class);
-                for (ContactsDB contactsDB:contactsDBS){
-                    Log.i("contantdb",contactsDB.getName());
+                for(ContactsDB contactsDB:contactsDBS){
+                    Log.i("contant",contactsDB.getName());
+                }*/
+                ContactsPersonCardActivity.contactsDBHandle.switchimportance(ContactsPersonCardActivity.this.person.getName());
+                if(ContactsPersonCardActivity.contactsDBHandle.getimportance(ContactsPersonCardActivity.this.person.getName())){
+                    Collected.setText("已收藏");
+                    //Log.i("collect","已收藏");
+                }else{
+                    Collected.setText("收藏");
+                    //Log.i("collect","未收藏");
                 }
-                Log.i("contant","有点到");
+                //Log.i("contant","有点到");
                 //String tempname = contactsDBHandle.getDate("洪浩强").toString();
                 //Toast.makeText(ContactsPersonCardActivity.this, contactsDBHandle.getDate("洪浩强").toString(), Toast.LENGTH_SHORT).show();
             }
