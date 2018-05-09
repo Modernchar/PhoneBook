@@ -80,13 +80,10 @@ public class ContactsUtils {
             Cursor emails = currentActivity.getContentResolver().query(
                     ContactsContract.CommonDataKinds.Email.CONTENT_URI,
                     null,
-                    ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = " + ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
-                    null, null);
+                    ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = " + ID, null, null);
 
             while (emails.moveToNext()) {
-                String email = emails
-                        .getString(emails
-                                .getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+                String email = emails.getString(emails.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS));
                 if (!email.isEmpty()) {
                     emailsArray.add(email);
                 }
