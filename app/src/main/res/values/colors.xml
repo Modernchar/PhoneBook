@@ -8,4 +8,5 @@
     <color name="MainlyBlack">#2e2e2e</color>
     <color name="UnselectedGray">#b4b4b4</color>
     <color name="DeleteRed">#fe1e1e</color>
+    <color name="CallGreen">#02c27f</color>
 </resources>

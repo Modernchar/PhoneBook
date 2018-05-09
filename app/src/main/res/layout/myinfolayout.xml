@@ -86,13 +86,14 @@
         android:layout_height="20px"
         />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
     <Button
         android:text="开始时间"
-        android:layout_width="180dp"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:id="@+id/button_startDate"
         android:background="@drawable/btn_nor_down"
@@ -100,14 +101,12 @@
         android:layout_marginRight="30px"
         android:textAlignment="center"
         android:layout_alignParentLeft="true"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="20px"
-        />
+
     <Button
         android:text="结束时间"
-        android:layout_width="180dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:id="@+id/button_endDate"
         android:background="@drawable/btn_nor_down"
         android:layout_marginLeft="30px"
@@ -115,7 +114,7 @@
         android:layout_alignParentRight="true"
         />
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

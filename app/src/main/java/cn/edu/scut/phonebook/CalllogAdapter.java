@@ -1,9 +1,11 @@
 package cn.edu.scut.phonebook;
 
 import android.app.Activity;
+import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Vibrator;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.TelephonyManager;
@@ -141,6 +143,8 @@ public class CalllogAdapter extends RecyclerView.Adapter<CalllogAdapter.ViewHold
         holder.more_inf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 int i = holder.getAdapterPosition();
                 String phone;
                 if(mCalllogList.get(i).getName()=="") {
@@ -183,9 +187,8 @@ public class CalllogAdapter extends RecyclerView.Adapter<CalllogAdapter.ViewHold
                 @Override
                 public void onClick(View view) {
 
-                    ArrayList<ContactsPerson> persons = ContactsUtils.getContactsPersonList(currentActivity);
 
-                    ContactsPerson person = ContactsUtils.findPersonByName(calllog.getName(),persons);
+                    ContactsPerson person = ContactsUtils.findPersonByName(calllog.getName(),currentActivity);
 
                     Intent intent = new Intent(view.getContext(),ContactsPersonCardActivity.class);
                     intent.putExtra("ContactsPerson",person);

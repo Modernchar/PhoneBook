@@ -7,15 +7,20 @@
     android:orientation="vertical"
     android:id="@+id/CallRecordLayout">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:background="#E0E0E0" />
+
+
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
@@ -29,6 +34,21 @@
         app:borderWidth="0dp"
         app:elevation="10dp" />
 
+        <include layout="@layout/t9keyboard" />
+
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:text="DIAL"
+            android:textColor="@color/MainlyGray"
+            android:background="@drawable/btn_call"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="13dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/T9_btn_show"/>
+
     </RelativeLayout>
+
 
 </LinearLayout>
