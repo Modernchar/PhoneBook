@@ -16,4 +16,22 @@
         android:layout_alignParentBottom="true"
         android:paddingLeft="30dp"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="end">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="30dp"
+            android:background="@drawable/btnwithoutstyle"
+            android:id="@+id/button_add_contacts_from_call_log"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:text="新建联系人"/>
+
+    </LinearLayout>
+
 </RelativeLayout>

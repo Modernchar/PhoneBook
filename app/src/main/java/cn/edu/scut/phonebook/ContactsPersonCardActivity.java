@@ -160,6 +160,7 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ContactsPersonCardActivity.this, CalllogSort.class);
                 intent.putExtra("key", person.getName());
+                intent.putExtra("isFromContactsCard", "true");
                 startActivity(intent);
             }});
         Collected.setOnClickListener(new View.OnClickListener() {

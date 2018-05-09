@@ -28,6 +28,9 @@ public class CalllogSort extends AppCompatActivity {
     SortAdapter adapter ;
     RecyclerView recyclerView;
 
+    Button button_add_contacts;
+    Button delete_all;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calllog_sort);
@@ -41,6 +44,7 @@ public class CalllogSort extends AppCompatActivity {
         }
 
 
+
         Intent getIntent = getIntent();
         final String phone = getIntent.getStringExtra("key");
 
@@ -51,7 +55,24 @@ public class CalllogSort extends AppCompatActivity {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        Button delete_all = (Button) findViewById(R.id.delete_all);
+        button_add_contacts = (Button)findViewById(R.id.button_add_contacts_from_call_log);
+        delete_all = (Button) findViewById(R.id.delete_all);
+
+        if (getIntent.getStringExtra("isFromContactsCard") != null) {
+            button_add_contacts.setVisibility(View.GONE);
+        }
+        else {
+
+            button_add_contacts.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(CalllogSort.this, AddContactsActivity.class);
+                    intent.putExtra("phoneNum", phone);
+                    startActivity(intent);
+                }
+            });
+        }
+
         delete_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

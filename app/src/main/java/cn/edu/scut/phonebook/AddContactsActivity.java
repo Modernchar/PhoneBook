@@ -79,6 +79,12 @@ public class AddContactsActivity extends AppCompatActivity {
 		button_cancel_add_contacts = (Button)findViewById(R.id.button_cancel_add_contacts);
 		button_open_qr_scan = (Button)findViewById(R.id.button_open_qr_scan);
 
+		if (getIntent() != null) {
+			Intent intent = getIntent();
+			String phone = intent.getStringExtra("phoneNum");
+			editText_phoneNumber.setText(phone);
+		}
+
 		button_add_contacts.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
