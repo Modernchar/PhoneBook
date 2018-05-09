@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -34,7 +35,11 @@ import com.yzq.zxinglibrary.android.CaptureActivity;
 import com.yzq.zxinglibrary.bean.ZxingConfig;
 import com.yzq.zxinglibrary.common.Constant;
 
+import org.litepal.LitePal;
+import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
@@ -52,7 +57,6 @@ public class MainActivity extends AppCompatActivity{
     private Button MyInfo; //我的
     private Button CallRecord; //通话记录
     private Button Contacts; // 联系人
-    private Button BitScan; //扫一扫
 
     private MyInfoFragment myInfoFragment;
     private CallRecordFragment callRecordFragment;
@@ -90,6 +94,7 @@ public class MainActivity extends AppCompatActivity{
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_CALL_LOG)!= PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_CALL_LOG}, 1);
         }
+        //初始化数据库
 
         //初始化各组件
         initParts();
@@ -156,6 +161,15 @@ public class MainActivity extends AppCompatActivity{
         };
 
         viewPager.setAdapter(pagerAdapter);
+        /*
+        LitePal.getDatabase();
+        //数据库查询
+        ContactsDBHandle contactsDBHandle = new ContactsDBHandle();
+        contactsDBHandle.Create(MainActivity.this);
+        Date date = new Date(System.currentTimeMillis());
+        contactsDBHandle.setDate("洪浩强",date);
+        Toast.makeText(this, contactsDBHandle.getDate("洪浩强").toString(), Toast.LENGTH_SHORT).show();
+        */
     }
     //初始化按钮的点击事件
     private void initButtonsClickEvents()

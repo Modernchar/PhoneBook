@@ -28,11 +28,12 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.android.support:recyclerview-v7:27.1.0'
-   // implementation fileTree(include: ['*.jar'], dir: 'libs')
+    // implementation fileTree(include: ['*.jar'], dir: 'libs')
     //implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:design:$support_version"
     implementation "com.android.support:support-vector-drawable:$support_version"
     implementation 'com.yanzhenjie:permission:2.0.0-rc4'
     //implementation project(':zxinglibrary')
     implementation 'com.github.yuzhiqiang1993:zxing:2.1.6'
+    implementation 'org.litepal.android:core:1.4.1'
 }

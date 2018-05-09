@@ -9,13 +9,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.zxing.WriterException;
 import com.yzq.zxinglibrary.encode.CodeCreator;
+
+import org.litepal.LitePal;
+import org.litepal.crud.DataSupport;
+
+import java.util.Date;
+import java.util.List;
 
 public class ContactsPersonCardActivity extends AppCompatActivity {
 
@@ -25,15 +33,16 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
     private RecyclerView contactsPersonPhoneNumListView;
     private LinearLayoutManager linearLayoutManager;
     private ContactsPersonPhoneNumListAdapter adapter;
+    static ContactsDBHandle contactsDBHandle = new ContactsDBHandle();
 
     private Button Bit_Card; //二维码名片
     private Button EditContactsButton;
     private Button CallLogBtn;
-
+    private Button Collected; //星标联系人
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        LitePal.getDatabase(); //初始化数据库
         setContentView(R.layout.activity_contacts_person_card);
 
         Intent intent = getIntent();
@@ -66,11 +75,17 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
         adapter = new ContactsPersonPhoneNumListAdapter(this,person.getPhoneNumbers());
 
         contactsPersonPhoneNumListView.setAdapter(adapter);
+
     }
     private void initButton(){
         Bit_Card = (Button)findViewById(R.id.QRCodeShare_Btn);
         EditContactsButton = (Button)findViewById(R.id.EditContacts_Btn);
         CallLogBtn = (Button)findViewById(R.id.ShowCallRecord_Btn);
+        Collected = (Button)findViewById(R.id.Collected_Btn);
+        contactsDBHandle.Create(ContactsPersonCardActivity.this);//创建数据表
+        if(ContactsPersonCardActivity.contactsDBHandle.getimportance(ContactsPersonCardActivity.this.person.getName())){
+            Collected.setText("已收藏");//判断是否重要
+        };
     }
 
 
@@ -119,6 +134,25 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
                 Intent intent = new Intent(ContactsPersonCardActivity.this,CalllogSort.class);
                 intent.putExtra("key",person.getName());
                 startActivity(intent);
+        Collected.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*
+                List<ContactsDB> contactsDBS = DataSupport.findAll(ContactsDB.class);
+                for(ContactsDB contactsDB:contactsDBS){
+                    Log.i("contant",contactsDB.getName());
+                }*/
+                ContactsPersonCardActivity.contactsDBHandle.switchimportance(ContactsPersonCardActivity.this.person.getName());
+                if(ContactsPersonCardActivity.contactsDBHandle.getimportance(ContactsPersonCardActivity.this.person.getName())){
+                    Collected.setText("已收藏");
+                    //Log.i("collect","已收藏");
+                }else{
+                    Collected.setText("收藏");
+                    //Log.i("collect","未收藏");
+                }
+                //Log.i("contant","有点到");
+                //String tempname = contactsDBHandle.getDate("洪浩强").toString();
+                //Toast.makeText(ContactsPersonCardActivity.this, contactsDBHandle.getDate("洪浩强").toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
