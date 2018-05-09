@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,8 @@ public class CallRecordFragment extends Fragment {
 
     private Activity currentActivity;
     private List<Calllog> calllogList = new ArrayList<>();
+    LinearLayoutManager layoutManager;
+    RecyclerView recyclerView;
 
 
     @Nullable
@@ -58,9 +62,32 @@ public class CallRecordFragment extends Fragment {
         //获取通话记录信息
         calllogList=CallLogUtils.GetRecords(currentActivity);
 
-        RecyclerView recyclerView = (RecyclerView) currentActivity.findViewById(R.id.recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(currentActivity);
+        recyclerView = (RecyclerView) currentActivity.findViewById(R.id.recycler_view);
+        layoutManager = new LinearLayoutManager(currentActivity);
         recyclerView.setLayoutManager(layoutManager);
+        final FloatingActionButton uptt = (FloatingActionButton) currentActivity.findViewById(R.id.uptt);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            boolean loading = true;
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (loading) {
+                    if (layoutManager.findFirstVisibleItemPosition() >= 9) {
+                        uptt.setVisibility(View.VISIBLE);
+                    } else {
+                        uptt.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+
+        uptt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerView.smoothScrollToPosition(0);
+            }
+        });
+
         CalllogAdapter adapter = new CalllogAdapter(currentActivity,calllogList);
         recyclerView.setAdapter(adapter);
     }

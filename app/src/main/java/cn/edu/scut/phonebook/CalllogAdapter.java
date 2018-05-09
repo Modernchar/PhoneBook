@@ -31,7 +31,6 @@ public class CalllogAdapter extends RecyclerView.Adapter<CalllogAdapter.ViewHold
         TextView lDate;
         TextView duration;
         ImageView more_inf;
-        View delete;
         TextView Location;
         TextView Carrier;
         View Border; // 分割线
@@ -65,37 +64,6 @@ public class CalllogAdapter extends RecyclerView.Adapter<CalllogAdapter.ViewHold
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.calllog_item, parent, false);
         final ViewHolder holder = new ViewHolder(view);
 
-        holder.delete = view.findViewById(R.id.delete_button);
-        holder.delete.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(parent.getContext());
-                builder.setTitle("提示");
-                builder.setMessage("确定要删除吗？");
-                builder.setCancelable(true);
-                builder.setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        int i = holder.getAdapterPosition();//获取index
-                        //移除数据库数据(根据ID删除)
-                        int id = mCalllogList.get(i).get_id();
-                        if (id >= 0) CallLogUtils.DeleteRecord(currentActivity, id);
-                        //提示
-                        String s = "已删除 " + mCalllogList.get(i).getName();
-                        Toast.makeText(parent.getContext(), s, Toast.LENGTH_SHORT).show();
-                        //移除list对应的数据
-                        mCalllogList.remove(i);
-                        notifyDataSetChanged();
-                    }
-                });
-                builder.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.create().show();
-            }
-        });
         holder.name.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 int i=holder.getAdapterPosition();

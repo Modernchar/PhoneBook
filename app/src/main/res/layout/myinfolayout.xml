@@ -6,37 +6,121 @@
     android:layout_height="match_parent"
     android:id="@+id/MyInfoLayout">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="20dp"
+        android:background="@color/MainColor">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="本月联系人数："
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textColor="@color/MainlyGray"
+            />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="本月通话时间："
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textColor="@color/MainlyGray"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:background="@color/MainColor">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="1"
+            android:textColor="@color/MainlyGray"
+            android:textAlignment="center"
+            android:id="@+id/current_times"
+            android:textSize="30sp"
+            />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/MainlyGray" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="2"
+            android:textAlignment="center"
+            android:id="@+id/current_duration"
+            android:textSize="30sp"
+            android:textColor="@color/MainlyGray"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="查询通话记录"
+        android:paddingLeft="30dp"
+        android:background="@color/MainColor"
+        android:textColor="@color/MainlyGray"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
     <View
         android:layout_width="match_parent"
         android:layout_height="20px"
         />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <Button
         android:text="开始时间"
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:id="@+id/button_startDate"
         android:background="@drawable/btn_nor_down"
         android:layout_marginLeft="30px"
         android:layout_marginRight="30px"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:layout_alignParentLeft="true"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="20px"
         />
     <Button
         android:text="结束时间"
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:id="@+id/button_endDate"
         android:background="@drawable/btn_nor_down"
         android:layout_marginLeft="30px"
         android:layout_marginRight="30px"
+        android:layout_alignParentRight="true"
         />
+
+    </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="30px"
         />
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,53 +146,8 @@
         android:layout_marginRight="30px"
         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="本月联系人数："
-            android:textAlignment="center"
-            />
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="本月通话时间："
-            android:textAlignment="center"
-            />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="1"
-            android:textAlignment="center"
-            android:id="@+id/current_times"
-            />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="2"
-            android:textAlignment="center"
-            android:id="@+id/current_duration"
-            />
-
-    </LinearLayout>
 
 </LinearLayout>
