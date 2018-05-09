@@ -47,7 +47,7 @@ public class FindRecordsActivity extends AppCompatActivity {
 
 
         //获取通话记录信息
-        calllogList=CallLogUtils.GetRecords(this);
+        calllogList=CallLogUtils.calllogList;
         Intent intent=getIntent();
         SearchCondition searchCondition=(SearchCondition) intent.getSerializableExtra("searchcondition");
         //查找
@@ -63,8 +63,8 @@ public class FindRecordsActivity extends AppCompatActivity {
         total_duration = (TextView) findViewById(R.id.total_duration);
 
         CallLogUtils callLogUtils = new CallLogUtils();
-        total_times.setText(callLogUtils.GetTotalNum(callLogUtils.GetRecords(this)));
-        total_duration.setText(callLogUtils.GetTotalDuration(callLogUtils.GetRecords(this)));
+        total_times.setText(callLogUtils.GetTotalNum(calllogList));
+        total_duration.setText(callLogUtils.GetTotalDuration(calllogList));
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             boolean loading = true;
@@ -199,7 +199,7 @@ public class FindRecordsActivity extends AppCompatActivity {
 
 
         //获取通话记录信息
-        calllogList=CallLogUtils.GetRecords(this);
+        calllogList=CallLogUtils.calllogList;
         Intent intent=getIntent();
         SearchCondition searchCondition=(SearchCondition) intent.getSerializableExtra("searchcondition");
         //查找
@@ -215,8 +215,8 @@ public class FindRecordsActivity extends AppCompatActivity {
         total_duration = (TextView) findViewById(R.id.total_duration);
 
         CallLogUtils callLogUtils = new CallLogUtils();
-        total_times.setText(callLogUtils.GetTotalNum(callLogUtils.GetRecords(this)));
-        total_duration.setText(callLogUtils.GetTotalDuration(callLogUtils.GetRecords(this)));
+        total_times.setText(callLogUtils.GetTotalNum(calllogList));
+        total_duration.setText(callLogUtils.GetTotalDuration(calllogList));
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             boolean loading = true;

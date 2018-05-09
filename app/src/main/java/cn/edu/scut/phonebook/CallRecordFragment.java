@@ -60,6 +60,7 @@ public class CallRecordFragment extends Fragment {
         //新建工具类
 
         //获取通话记录信息
+        //if(CallRecordFragment)
         calllogList=CallLogUtils.GetRecords(currentActivity);
 
         recyclerView = (RecyclerView) currentActivity.findViewById(R.id.recycler_view);

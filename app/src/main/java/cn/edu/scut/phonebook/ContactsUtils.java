@@ -20,7 +20,7 @@ import java.util.Comparator;
     * Persenter层，专注于处理与 联系人 界面有关的逻辑
  */
 public class ContactsUtils {
-
+    private static ArrayList<ContactsPerson> Persons;
     //将姓转成拼音,获取首字母
     public static String LastNameToPinyin(String name)
     {
@@ -49,7 +49,7 @@ public class ContactsUtils {
     //获取全部联系人
     public static ArrayList<ContactsPerson> getContactsPersonList(Activity currentActivity)
     {
-        ArrayList<ContactsPerson> Persons = new ArrayList<>() ;//全部联系人
+        ContactsUtils.Persons = new ArrayList<>() ;//全部联系人
 
         //查找联系人数据
         Cursor cursor = currentActivity.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI,null,null,null,null);

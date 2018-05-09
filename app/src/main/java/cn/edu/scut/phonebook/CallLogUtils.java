@@ -8,6 +8,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.provider.CallLog;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +20,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CallLogUtils {
+    static List<Calllog> calllogList = new ArrayList<>();
     private static String DateExchange(long lDate){//把日期转化为String
         String sDate="";
         Date date = new Date(System.currentTimeMillis());
@@ -96,6 +99,7 @@ public class CallLogUtils {
     }
 
     public List<Calllog> RecordSort(Activity activity, String phone){//获取通话记录
+        Log.i("calllog","获取通话记录");
         Cursor cursor = null;
         List<Calllog> calllogList = new ArrayList<>();
         ContentResolver contentResolver= activity.getContentResolver();
@@ -192,14 +196,13 @@ public class CallLogUtils {
 
     public static List<Calllog> GetRecords(Activity activity){//获取通话记录
         Cursor cursor = null;
-        List<Calllog> calllogList = new ArrayList<>();
         ContentResolver contentResolver= activity.getContentResolver();
         //判断是否有权限
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_CALL_LOG)!= PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CALL_LOG}, 1);
         }
         //系统方式获取通讯录存储地址，按日期倒序
-        cursor = contentResolver.query(CallLog.Calls.CONTENT_URI, null, null, null, CallLog.Calls.DATE + " desc");
+        cursor = contentResolver.query(CallLog.Calls.CONTENT_URI, null, null, null, CallLog.Calls.DATE + " desc" );
         if (cursor == null)
             return null;
 
@@ -269,6 +272,7 @@ public class CallLogUtils {
     }
 
     public static String  GetCurrentMonthDuration(List<Calllog> calllogList){
+        Log.i("calllog","本月通话");
         //按照严格标准相加
         /*......*/
 

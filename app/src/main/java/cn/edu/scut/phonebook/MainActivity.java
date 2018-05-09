@@ -19,6 +19,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,20 +68,20 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //getSupportActionBar().hide();//隐藏标题栏
         setContentView(R.layout.activity_main);
-
-        //动态获取读取联系人权限
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED)
-        {
-            ActivityCompat.requestPermissions(this,new String[]{ Manifest.permission.READ_CONTACTS },1);
+        //隐藏状态栏
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
-        else{
-            //Toast.makeText(this, "未获取读取联系人权限", Toast.LENGTH_SHORT).show();
-        }
-
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED)
+        startActivityForResult(new Intent(this, PermissionActivity.class).putExtra(PermissionActivity.KEY_PERMISSIONS_ARRAY,
+                new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_CALL_LOG,Manifest.permission.WRITE_CALL_LOG,Manifest.permission.READ_CONTACTS}), PermissionActivity.CALL_BACK_PERMISSION_REQUEST_CODE);
+        /*
         // 动态获取拨号权限
+
         if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.CALL_PHONE},1);
         }else {
@@ -95,18 +96,24 @@ public class MainActivity extends AppCompatActivity{
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_CALL_LOG}, 1);
         }
         //初始化数据库
+        //动态获取读取联系人权限
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{ Manifest.permission.READ_CONTACTS },1);
+        }
+        else{
+            //Toast.makeText(this, "未获取读取联系人权限", Toast.LENGTH_SHORT).show();
+        }
+
+        //getSupportActionBar().hide();//隐藏标题栏
+        */
+
 
         //初始化各组件
         initParts();
         initButtonsClickEvents();
 
-        //隐藏状态栏
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //透明状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //透明导航栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        }
+
 
 
     }
@@ -161,6 +168,7 @@ public class MainActivity extends AppCompatActivity{
         };
 
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setOffscreenPageLimit(2);
         /*
         LitePal.getDatabase();
         //数据库查询
@@ -197,5 +205,20 @@ public class MainActivity extends AppCompatActivity{
     private void initFragment()
     {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PermissionActivity.CALL_BACK_PERMISSION_REQUEST_CODE){
+            switch (resultCode){
+                case PermissionActivity.CALL_BACK_RESULT_CODE_SUCCESS:
+                    Toast.makeText(this,"权限申请成功！",Toast.LENGTH_SHORT).show();
+                    break;
+                case PermissionActivity.CALL_BACK_RESULE_CODE_FAILURE:
+                    Toast.makeText(this,"权限申请失败！",Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
     }
 }
