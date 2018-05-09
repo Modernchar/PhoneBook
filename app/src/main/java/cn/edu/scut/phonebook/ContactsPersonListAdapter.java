@@ -100,5 +100,12 @@ public class ContactsPersonListAdapter extends RecyclerView.Adapter<ContactsPers
         return Persons.size();
     }
 
+    public void addContactsPersonToListView(int position,ContactsPerson p)
+    {
+
+        Persons.add(position,p);
+        notifyItemInserted(position);
+    }
+
 
 }

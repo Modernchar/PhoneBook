@@ -206,4 +206,14 @@ public class ContactsUtils {
         return new ContactsPerson();
     }
 
+    public static int getContactsPersonPositionInList(ContactsPerson p,ArrayList<ContactsPerson> persons)
+    {
+        int i=0;
+        for(;i<persons.size();i++)
+        {
+            if(p.compareTo(persons.get(i))>0)
+                break;
+        }
+        return i;
+    }
 }

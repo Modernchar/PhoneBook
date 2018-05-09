@@ -108,8 +108,12 @@ public class ContactsPersonPhoneNumListAdapter extends RecyclerView.Adapter<Cont
         // 删除多余字符
         String num_after = num.replaceAll("[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……& amp;*（）——+|{}【】‘；：”“’。，、？|-]", "");
 
-        holder.TeleComTag.setText(PhoneUtil.getCarrier(num_after,86));
-        holder.LocationTag.setText(PhoneUtil.getGeo(num_after,86)); // 号码所在地
+        if(!num_after.equals(""))
+        {
+            holder.TeleComTag.setText(PhoneUtil.getCarrier(num_after,86));
+            holder.LocationTag.setText(PhoneUtil.getGeo(num_after,86)); // 号码所在地
+        }
+
         if(position == 0)
         {
             holder.Line.setVisibility(View.GONE);

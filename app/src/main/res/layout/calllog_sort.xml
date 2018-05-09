@@ -14,7 +14,7 @@
             android:id="@+id/sort_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/MainlyGray"
+            android:background="#E0E0E0"
             android:scrollbars="vertical"
             android:layoutAnimation="@anim/layout_animation_from_bottom"/>
 
