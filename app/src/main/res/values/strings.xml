@@ -3,4 +3,12 @@
     <string name="title_activity_bit_scan">Bit_scan</string>
     <string name="floating_button_behavior">cn.edu.scut.phonebook.FloatingButtonBehavior</string>
     <string name="searchContactPerson">搜索联系人</string>
+
+    <string name="dialog_title">提示</string>
+    <string name="sure">确定</string>
+    <string name="cancel">取消</string>
+    <string name="set">设置</string>
+    <string name="defaule_first_message">为了您的安全，您需要授权该权限才可以正常使用相关功能哦。</string>
+    <string name="defaule_always_message">当前应用缺少相应的权限，您需要设置相应的权限后才可正常相关功能。</string>
+    <string name="title_activity_welcome">welcomeActivity</string>
 </resources>
