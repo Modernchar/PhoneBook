@@ -1,10 +1,14 @@
 package cn.edu.scut.phonebook;
 
+import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.provider.ContactsContract;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,6 +41,7 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
 
     private Button Bit_Card; //二维码名片
     private Button EditContactsButton;
+    private Button DeleteContactsButton;
     private Button CallLogBtn;
     private Button Collected; //星标联系人
     @Override
@@ -80,6 +85,7 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
     private void initButton(){
         Bit_Card = (Button)findViewById(R.id.QRCodeShare_Btn);
         EditContactsButton = (Button)findViewById(R.id.EditContacts_Btn);
+        DeleteContactsButton = (Button)findViewById(R.id.DeleteContacts_Btn);
         CallLogBtn = (Button)findViewById(R.id.ShowCallRecord_Btn);
         Collected = (Button)findViewById(R.id.Collected_Btn);
         contactsDBHandle.Create(ContactsPersonCardActivity.this);//创建数据表
@@ -125,6 +131,27 @@ public class ContactsPersonCardActivity extends AppCompatActivity {
                     intent.putExtra("email", person.getEmails().get(0));
                 }
                 startActivity(intent);
+            }
+        });
+
+        DeleteContactsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new AlertDialog.Builder(ContactsPersonCardActivity.this)
+                        .setTitle("是否确认删除？")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                ContactsUtils.deleteContacts(ContactsPersonCardActivity.this, person.getID());
+
+                                Toast.makeText(ContactsPersonCardActivity.this,"删除成功", Toast.LENGTH_SHORT).show();
+
+                                finish();
+                            }
+                        }).show();
             }
         });
 

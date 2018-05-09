@@ -46,6 +46,13 @@
             android:layout_height="40dp" />
 
         <Button
+            android:id="@+id/Collected_Btn"
+            android:text="收藏"
+            android:background="@drawable/btnwithoutstyle"
+            android:layout_width="50dp"
+            android:layout_height="40dp" />
+
+        <Button
             android:id="@+id/EditContacts_Btn"
             android:text="编辑"
             android:background="@drawable/btnwithoutstyle"
@@ -53,11 +60,12 @@
             android:layout_height="40dp" />
 
         <Button
-            android:id="@+id/Collected_Btn"
-            android:text="收藏"
+            android:id="@+id/DeleteContacts_Btn"
+            android:text="删除"
             android:background="@drawable/btnwithoutstyle"
             android:layout_width="50dp"
             android:layout_height="40dp" />
+
     </LinearLayout>
 
     <View

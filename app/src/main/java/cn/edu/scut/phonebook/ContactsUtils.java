@@ -150,6 +150,12 @@ public class ContactsUtils {
                 new String[] { ContactId, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE});
     }
 
+    public static void deleteContacts(Context context, String ContactID) {
+
+    	context.getContentResolver().delete(ContentUris.withAppendedId(ContactsContract.RawContacts.CONTENT_URI, Long.parseLong(ContactID)), null, null);
+
+    }
+
 
     //搜索符合相关信息的联系人
     //输入参数是字符串，可能是数字或汉字或字母
