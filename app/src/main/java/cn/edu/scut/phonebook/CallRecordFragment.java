@@ -56,7 +56,7 @@ public class CallRecordFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        Log.i("initPart","CallFragmentBegin");
         //新建工具类
 
         //获取通话记录信息
@@ -91,6 +91,7 @@ public class CallRecordFragment extends Fragment {
 
         CalllogAdapter adapter = new CalllogAdapter(currentActivity,calllogList);
         recyclerView.setAdapter(adapter);
+        Log.i("initPart","callFragmentend");
     }
     @Override
     public void onResume() {

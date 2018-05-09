@@ -37,7 +37,7 @@ public class MyInfoFragment extends Fragment {
     TextView call_times;
     TextView total_duration;
     String name;//按姓名查找
-    private List<Calllog> calllogList = new ArrayList<>();
+    static List<Calllog> calllogList = new ArrayList<>();
 
     private Activity currentActivity;
     @Nullable
@@ -65,7 +65,7 @@ public class MyInfoFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        Log.i("initPart","myinfoFragmentbegin");
         button_startDate = (Button) currentActivity.findViewById(R.id.button_startDate);
         button_endDate = (Button) currentActivity.findViewById(R.id.button_endDate);
         button_find = (Button) currentActivity.findViewById(R.id.button_find);
@@ -74,8 +74,9 @@ public class MyInfoFragment extends Fragment {
         total_duration = (TextView) currentActivity.findViewById(R.id.current_duration);
 
         CallLogUtils callLogUtils = new CallLogUtils();
-        call_times.setText(callLogUtils.GetCurrentMonthNum(callLogUtils.GetRecords(currentActivity)));
-        total_duration.setText(callLogUtils.GetCurrentMonthDuration(callLogUtils.GetRecords(currentActivity)));
+        calllogList = CallLogUtils.calllogList;
+        call_times.setText(callLogUtils.GetCurrentMonthNum(calllogList));
+        total_duration.setText(callLogUtils.GetCurrentMonthDuration(calllogList));
 
         button_startDate.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){//设置开始时间
@@ -134,6 +135,7 @@ public class MyInfoFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        Log.i("initPart","myinfoFragmentend");
     }
 
     private void showDatePickDialog(OnSureLisener onSureLisener) {

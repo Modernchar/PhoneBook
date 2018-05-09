@@ -88,6 +88,7 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.i("initPart","contactFragmentbegin");
 
         Log.i("onActivityCreated","onActivityCreated");
         letterListView = new LetterListView(currentActivity);
@@ -190,14 +191,16 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
 
         // 下面这两句原来是放在 onActivityCreated 最后的 TAG 1的地方
         // ——————TAG 1 START ——————
+        Log.i("initPart","contactFragmentend1");
         Persons  = ContactsUtils.getContactsPersonList(currentActivity);
-
+        Log.i("initPart","contactFragmentend2");
         // 提前加载会不会快一点？
         // 并不会
         adapter = new ContactsPersonListAdapter(currentActivity,Persons);
         // ——————TAG 1 END ——————
 
         ContactsPersonListView.setAdapter(adapter);
+        Log.i("initPart","contactFragmentend");
 
     }
 

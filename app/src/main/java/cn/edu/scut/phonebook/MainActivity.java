@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity{
             //透明导航栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
+
         if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED)
         startActivityForResult(new Intent(this, PermissionActivity.class).putExtra(PermissionActivity.KEY_PERMISSIONS_ARRAY,
                 new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_CALL_LOG,Manifest.permission.WRITE_CALL_LOG,Manifest.permission.READ_CONTACTS}), PermissionActivity.CALL_BACK_PERMISSION_REQUEST_CODE);
@@ -148,9 +149,10 @@ public class MainActivity extends AppCompatActivity{
         myInfoFragment = new MyInfoFragment();
         callRecordFragment = new CallRecordFragment();
         contactsFragment = new ContactsFragment();
-
+        Log.i("initPart","Fragment");
 
         Pages.add(callRecordFragment);
+
         Pages.add(contactsFragment);
         Pages.add(myInfoFragment);
 
