@@ -68,7 +68,7 @@ public class CalllogSort extends AppCompatActivity {
                         //移除list对应的数据
                         CallLogUtils.DeleteRecord(CalllogSort.this,phone);
                         List<Calllog> temp = new ArrayList<>();
-                        adapter = new SortAdapter(temp);
+                        adapter = new SortAdapter(CalllogSort.this,temp);
                         recyclerView.setAdapter(adapter);
                     }
                 });
@@ -82,7 +82,7 @@ public class CalllogSort extends AppCompatActivity {
 
             }
         });
-        adapter = new SortAdapter(calllogList);
+        adapter = new SortAdapter(this,calllogList);
         recyclerView.setAdapter(adapter);
 
     }

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
         ImageView type;
         TextView lDate;
         TextView duration;
+        View delete;
 
         public ViewHolder(View view) {
             super(view);
@@ -39,7 +41,8 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
         }
     }
 
-    public SortAdapter(List<Calllog> calllogList) {
+    public SortAdapter(Activity currentActivity,List<Calllog> calllogList) {
+        this.currentActivity = currentActivity;
         mCalllogList = calllogList;
     }
 
@@ -52,7 +55,39 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sort_show, parent, false);
         final ViewHolder holder = new ViewHolder(view);
-        view.setOnClickListener(new View.OnClickListener() {
+        holder.delete = view.findViewById(R.id.delete_button);
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(parent.getContext());
+                builder.setTitle("提示");
+                builder.setMessage("确定要删除吗？");
+                builder.setCancelable(true);
+                builder.setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        int i = holder.getAdapterPosition();//获取index
+                        //移除数据库数据(根据ID删除)
+                        int id = mCalllogList.get(i).get_id();
+                        Log.d("id", ""+id);
+                        if (id >= 0) CallLogUtils.DeleteRecord(currentActivity, id);
+                        //提示
+                        String s = "已删除 " + mCalllogList.get(i).getName();
+                        Toast.makeText(parent.getContext(), s, Toast.LENGTH_SHORT).show();
+                        //移除list对应的数据
+                        mCalllogList.remove(i);
+                        notifyDataSetChanged();
+                    }
+                });
+                builder.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
+            }
+        });
+        /*view.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 int i=holder.getAdapterPosition();
                 final String phone;
@@ -88,7 +123,7 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
                 });
                 builder.create().show();
             }
-        });
+        });*/
         return holder;
     }
 

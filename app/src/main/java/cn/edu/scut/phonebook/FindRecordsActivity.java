@@ -86,7 +86,6 @@ public class FindRecordsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 recyclerView.smoothScrollToPosition(0);
-                Toast.makeText(FindRecordsActivity.this, "已回到顶部", Toast.LENGTH_SHORT).show();
             }
         });
 
