@@ -191,4 +191,22 @@ public class ContactsPerson implements Comparable,Serializable{
             return false;
         else return true;
     }
+
+    public Boolean isPhoneNumberEmpty()
+    {
+        if(this.PhoneNumbers.size()>0)
+            return false;
+        else return true;
+    }
+
+    // 不完全的新建方法,慎用
+    public ContactsPerson(String name,String phone,String email)
+    {
+        this.name = name;
+        this.LastNameFirstLetter = ContactsUtils.LastNameToPinyin(name);
+        this.PhoneNumbers = new ArrayList<>();
+        this.emails = new ArrayList<>();
+        if(phone!=null&&!phone.equals("")) this.PhoneNumbers.add(phone);
+        if(email!=null&&!email.equals("")) this.emails.add(email);
+    }
 }

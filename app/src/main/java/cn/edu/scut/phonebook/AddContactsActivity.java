@@ -105,6 +105,9 @@ public class AddContactsActivity extends AppCompatActivity {
 				ContactsPerson person = new ContactsPerson(id, name, NumList);*/
 
 					ContactsUtils.insertContacts(thisContext, name, phone, email);
+					Intent intent = new Intent();
+					intent.putExtra("Newly_Save_ContactsPerson",new ContactsPerson(name,phone,email));
+					setResult(RESULT_OK,intent);
 
 					Toast.makeText(thisContext, "添加成功", Toast.LENGTH_SHORT).show();
 

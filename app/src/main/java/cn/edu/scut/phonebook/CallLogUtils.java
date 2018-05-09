@@ -42,6 +42,9 @@ public class CallLogUtils {
         } else if (date_today.contains(callDateStr.substring(0, 4))) { //判断是否为当年
             sdf = new SimpleDateFormat("MM-dd");
             sDate = sdf.format(callDate);
+        } else{
+            sdf = new SimpleDateFormat("yyyy-MM-dd");
+            sDate = sdf.format(callDate);
         }
         return sDate;
     }

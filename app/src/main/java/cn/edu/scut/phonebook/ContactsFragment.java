@@ -28,6 +28,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class ContactsFragment extends Fragment implements LetterListView.LetterListViewListener,Runnable{
 
@@ -157,7 +159,7 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(currentActivity, AddContactsActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,100); // 100 请求保存结果
             }
         });
 
@@ -259,5 +261,29 @@ public class ContactsFragment extends Fragment implements LetterListView.LetterL
         textView.setHintTextColor(ContextCompat.getColor(currentActivity, R.color.UnselectedGray));
         textView.setTextSize(16);
         searchView.setQueryHint(currentActivity.getString(R.string.searchContactPerson));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Persons  = ContactsUtils.getContactsPersonList(currentActivity);
+        adapter = new ContactsPersonListAdapter(currentActivity,Persons);
+        ContactsPersonListView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch(requestCode)
+        {
+            case 100:{ // 获得联系人保存之后传回来的数据
+                if(resultCode == RESULT_OK)
+                {
+                    ContactsPerson NewlyPerson = (ContactsPerson)data.getSerializableExtra("Newly_Save_ContactsPerson");
+                    adapter.addContactsPersonToListView(ContactsUtils.getContactsPersonPositionInList(NewlyPerson,Persons),NewlyPerson);
+                    break;
+                }
+            }
+        }
     }
 }
