@@ -63,7 +63,7 @@ public class ContactsPersonPhoneNumListAdapter extends RecyclerView.Adapter<Cont
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
                 String num  = PhoneNums.get(position);
-
+                Storage.changecall = true;
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_CALL);// 设置活动类型
                 intent.setData(Uri.parse("tel:"+num));// 设置数据
@@ -78,7 +78,7 @@ public class ContactsPersonPhoneNumListAdapter extends RecyclerView.Adapter<Cont
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
                 String num  = PhoneNums.get(position);
-
+                Storage.changecall = true;
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_CALL);// 设置活动类型
                 intent.setData(Uri.parse("tel:"+num));// 设置数据

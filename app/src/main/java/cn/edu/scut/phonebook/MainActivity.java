@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity{
     private MyInfoFragment myInfoFragment;
     private CallRecordFragment callRecordFragment;
     private ContactsFragment contactsFragment;
+    private Storage storage;
 
     private int REQUEST_CODE_SCAN = 111;
 
@@ -133,6 +134,7 @@ public class MainActivity extends AppCompatActivity{
         Contacts = (Button)findViewById(R.id.Contacts_Btn);
 
         LayoutInflater layoutInflater = LayoutInflater.from(this);
+        storage = new Storage();
 
 
         /*

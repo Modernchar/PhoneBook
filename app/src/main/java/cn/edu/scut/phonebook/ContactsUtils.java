@@ -20,7 +20,7 @@ import java.util.Comparator;
     * Persenter层，专注于处理与 联系人 界面有关的逻辑
  */
 public class ContactsUtils {
-    static ArrayList<ContactsPerson> Persons;
+
     //将姓转成拼音,获取首字母
     public static String LastNameToPinyin(String name)
     {
@@ -49,8 +49,8 @@ public class ContactsUtils {
     //获取全部联系人
     public static ArrayList<ContactsPerson> getContactsPersonList(Activity currentActivity)
     {
-        ContactsUtils.Persons = new ArrayList<>() ;//全部联系人
-
+        Storage.Persons = new ArrayList<>() ;//全部联系人
+        Storage.changeperson = false;
         //查找联系人数据
         Cursor cursor = currentActivity.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI,null,null,null,null);
 
@@ -92,17 +92,18 @@ public class ContactsUtils {
             emails.close();
 
             ContactsPerson person = new ContactsPerson(ID, name, PhoneNums, emailsArray);
-            Persons.add(person);
+            Storage.Persons.add(person);
 
 
         }
         cursor.close();
 
-        Collections.sort(Persons);
-        return Persons;
+        Collections.sort(Storage.Persons);
+        return Storage.Persons;
     }
 
     public static void insertContacts(Context context, String name, String phone, String email) {
+        Storage.changeperson = true;
         ContentValues values = new ContentValues();
         Uri rawContactUri = context.getContentResolver().insert(ContactsContract.RawContacts.CONTENT_URI, values);
         long rawContactId = ContentUris.parseId(rawContactUri);
@@ -130,6 +131,7 @@ public class ContactsUtils {
 
     //更改数据库中联系人
     public static void updateContact(Context context, String ContactId, String name, String number, String email) {
+        Storage.changeperson = true;
         ContentValues values = new ContentValues();
         // 更新姓名
         values.put(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, name);
@@ -151,7 +153,7 @@ public class ContactsUtils {
     }
 
     public static void deleteContacts(Context context, String ContactID) {
-
+        Storage.changeperson = true;
     	context.getContentResolver().delete(ContentUris.withAppendedId(ContactsContract.RawContacts.CONTENT_URI, Long.parseLong(ContactID)), null, null);
 
     }
@@ -267,7 +269,7 @@ public class ContactsUtils {
         int i=0;
         for(;i<persons.size();i++)
         {
-            if(p.compareTo(persons.get(i))>0)
+            if(p.compareTo(persons.get(i))<0)
                 break;
         }
         return i;

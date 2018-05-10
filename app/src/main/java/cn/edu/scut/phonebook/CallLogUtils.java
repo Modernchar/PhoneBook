@@ -20,7 +20,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CallLogUtils {
-    static List<Calllog> calllogList = new ArrayList<>();
+    //static boolean change = false;
     private static String DateExchange(long lDate){//把日期转化为String
         String sDate="";
         Date date = new Date(System.currentTimeMillis());
@@ -70,6 +70,7 @@ public class CallLogUtils {
     }
 
     public static void call(Activity activity, String phone) {
+        Storage.changecall = true;
         if(ActivityCompat.checkSelfPermission(activity, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.CALL_PHONE},1);
         }else {
@@ -79,6 +80,7 @@ public class CallLogUtils {
     }
 
     public static void DeleteRecord(Activity activity,int id){
+        Storage.changecall = true;
         ContentResolver contentResolver= activity.getContentResolver();
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_CALL_LOG)!= PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CALL_LOG}, 1000);
@@ -88,6 +90,7 @@ public class CallLogUtils {
     }
 
     public static void DeleteRecord(Activity activity,String name){
+        Storage.changecall = true;
         ContentResolver contentResolver= activity.getContentResolver();
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_CALL_LOG)!= PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CALL_LOG}, 1000);
@@ -196,7 +199,8 @@ public class CallLogUtils {
 
     public static List<Calllog> GetRecords(Activity activity){//获取通话记录
         Cursor cursor = null;
-        calllogList = new ArrayList<>();
+        Storage.changecall= false;
+        Storage.calllogList = new ArrayList<>();
         ContentResolver contentResolver= activity.getContentResolver();
         //判断是否有权限
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_CALL_LOG)!= PackageManager.PERMISSION_GRANTED) {
@@ -237,10 +241,10 @@ public class CallLogUtils {
                 type=R.drawable.down;
             }
             Calllog calllog = new Calllog(_id, _type, _lDate, _duration, name, number, type, lDate, duration);
-            calllogList.add(calllog);
+            Storage.calllogList.add(calllog);
         }
         cursor.close();
-        return calllogList;
+        return Storage.calllogList;
     }
 
     public static String  GetTotalDuration(List<Calllog> calllogList){

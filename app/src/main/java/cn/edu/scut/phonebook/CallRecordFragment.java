@@ -128,8 +128,16 @@ public class CallRecordFragment extends Fragment {
 
         Log.i("OnActivityCreated","Resume");
         //获取通话记录信息
-        calllogList=CallLogUtils.GetRecords(currentActivity);
 
+        calllogList = CallLogUtils.GetRecords(currentActivity);
+        Storage.changecall = false;
+        /*
+        if(Storage.changecall) {
+            calllogList = CallLogUtils.GetRecords(currentActivity);
+            Storage.changecall = false;
+        }else{
+            calllogList = Storage.calllogList;
+        }*/
         recyclerView = (RecyclerView) currentActivity.findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(currentActivity);
         recyclerView.setLayoutManager(layoutManager);

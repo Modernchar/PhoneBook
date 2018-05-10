@@ -37,7 +37,7 @@ public class MyInfoFragment extends Fragment {
     TextView call_times;
     TextView total_duration;
     String name;//按姓名查找
-    static List<Calllog> calllogList = new ArrayList<>();
+    private List<Calllog> calllogList = new ArrayList<>();
 
     private Activity currentActivity;
     @Nullable
@@ -74,7 +74,12 @@ public class MyInfoFragment extends Fragment {
         total_duration = (TextView) currentActivity.findViewById(R.id.current_duration);
 
         CallLogUtils callLogUtils = new CallLogUtils();
-        calllogList = CallLogUtils.calllogList;
+        if(Storage.changecall){
+            calllogList = CallLogUtils.GetRecords(currentActivity);
+            Storage.changecall = false;
+        }else {
+            calllogList = Storage.calllogList;
+        }
         call_times.setText(callLogUtils.GetCurrentMonthNum(calllogList));
         total_duration.setText(callLogUtils.GetCurrentMonthDuration(calllogList));
 

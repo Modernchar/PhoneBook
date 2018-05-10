@@ -47,7 +47,7 @@ public class FindRecordsActivity extends AppCompatActivity {
 
 
         //获取通话记录信息
-        calllogList=CallLogUtils.calllogList;
+        calllogList=Storage.calllogList;
         Intent intent=getIntent();
         SearchCondition searchCondition=(SearchCondition) intent.getSerializableExtra("searchcondition");
         //查找
@@ -199,7 +199,14 @@ public class FindRecordsActivity extends AppCompatActivity {
 
 
         //获取通话记录信息
-        calllogList=CallLogUtils.calllogList;
+        if(Storage.changecall)
+        {
+            calllogList = CallLogUtils.GetRecords(FindRecordsActivity.this);
+            Storage.changecall = false;
+        }else{
+            calllogList=Storage.calllogList;
+        }
+
         Intent intent=getIntent();
         SearchCondition searchCondition=(SearchCondition) intent.getSerializableExtra("searchcondition");
         //查找

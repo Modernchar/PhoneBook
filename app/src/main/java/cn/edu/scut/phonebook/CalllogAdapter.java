@@ -83,6 +83,7 @@ public class CalllogAdapter extends RecyclerView.Adapter<CalllogAdapter.ViewHold
                 builder.setPositiveButton("呼叫", new android.content.DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Storage.changecall = true;
                         CallLogUtils.call(currentActivity, phone);
                         /*TelephonyManager tm = (TelephonyManager) parent.getContext().getSystemService(Context.TELEPHONY_SERVICE);
                         while (true) {
@@ -120,6 +121,7 @@ public class CalllogAdapter extends RecyclerView.Adapter<CalllogAdapter.ViewHold
                 builder.setPositiveButton("呼叫", new android.content.DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Storage.changecall = true;
                         CallLogUtils.call(currentActivity, phone);
                         /*TelephonyManager tm = (TelephonyManager) parent.getContext().getSystemService(Context.TELEPHONY_SERVICE);
                         while (true) {
@@ -154,7 +156,7 @@ public class CalllogAdapter extends RecyclerView.Adapter<CalllogAdapter.ViewHold
                     view.getContext().startActivity(intent);
                 }
                 else {
-                    ArrayList<ContactsPerson> persons = ContactsUtils.Persons;
+                    ArrayList<ContactsPerson> persons = Storage.Persons;
 
                     ContactsPerson person = ContactsUtils.findPersonByName(mCalllogList.get(i).getName(),persons);
 
