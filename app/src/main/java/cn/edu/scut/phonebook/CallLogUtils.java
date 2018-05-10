@@ -196,6 +196,7 @@ public class CallLogUtils {
 
     public static List<Calllog> GetRecords(Activity activity){//获取通话记录
         Cursor cursor = null;
+        calllogList = new ArrayList<>();
         ContentResolver contentResolver= activity.getContentResolver();
         //判断是否有权限
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_CALL_LOG)!= PackageManager.PERMISSION_GRANTED) {
@@ -216,6 +217,9 @@ public class CallLogUtils {
 
             if(name==null) {
                 name = number;
+                number = "";
+            }
+            if(name.length()>6){
                 number = "";
             }
 
