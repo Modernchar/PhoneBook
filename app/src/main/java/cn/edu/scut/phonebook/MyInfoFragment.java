@@ -157,4 +157,18 @@ public class MyInfoFragment extends Fragment {
         dialog.setOnSureLisener(onSureLisener);
         dialog.show();
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        CallLogUtils callLogUtils = new CallLogUtils();
+        if(Storage.changecall){
+            calllogList = CallLogUtils.GetRecords(currentActivity);
+            Storage.changecall = false;
+        }else {
+            calllogList = Storage.calllogList;
+        }
+        call_times.setText(callLogUtils.GetCurrentMonthNum(calllogList));
+        total_duration.setText(callLogUtils.GetCurrentMonthDuration(calllogList));
+    }
 }

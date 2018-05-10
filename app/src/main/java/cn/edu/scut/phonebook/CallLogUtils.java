@@ -223,7 +223,7 @@ public class CallLogUtils {
                 name = number;
                 number = "";
             }
-            if(name.length()>6){
+            if(name.length()>10){
                 number = "";
             }
 
