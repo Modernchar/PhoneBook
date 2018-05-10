@@ -190,22 +190,6 @@ public class CalllogAdapter extends RecyclerView.Adapter<CalllogAdapter.ViewHold
             holder.Location.setText(PhoneUtil.getGeo(num, 86));
             holder.Carrier.setText(PhoneUtil.getCarrier(num, 86));
             holder.Border.setVisibility(View.VISIBLE);
-<<<<<<< HEAD
-
-            holder.more_inf.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-
-                    ContactsPerson person = ContactsUtils.findPersonByName(calllog.getName(),currentActivity);
-
-                    Intent intent = new Intent(view.getContext(),ContactsPersonCardActivity.class);
-                    intent.putExtra("ContactsPerson",person);
-                    view.getContext().startActivity(intent);
-                };
-            });
-=======
->>>>>>> hx
         }
         else
         {
