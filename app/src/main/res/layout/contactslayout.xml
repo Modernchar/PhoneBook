@@ -43,6 +43,7 @@
             android:id="@+id/SearchListView"
             android:background="#f7f7f7"/>
 
+
     </LinearLayout>
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -77,6 +78,7 @@
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:textSize="50dp"
+                android:gravity="center"
                 android:textColor="#565656"/>
 
         </RelativeLayout>

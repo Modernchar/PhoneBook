@@ -212,6 +212,56 @@ public class ContactsUtils {
         return new ContactsPerson();
     }
 
+    public static ContactsPerson findPersonByName(String name,Activity currentActivity) {
+        //查找联系人数据
+        Cursor cursor = currentActivity.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null, ContactsContract.PhoneLookup.DISPLAY_NAME + "=?", new String[]{name}, null);
+        while (cursor.moveToNext()) {
+
+            // 联系人姓名是否相同
+            if (name.equals(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)))) {
+                // 联系人ID
+                String ID = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+
+                // 联系人电话
+                Cursor PhoneNumsCursor = currentActivity.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + ID, null, null);
+                ArrayList<String> PhoneNums = new ArrayList<String>();
+
+
+                while (PhoneNumsCursor.moveToNext()) {
+                    String num = PhoneNumsCursor.getString(PhoneNumsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+                    PhoneNums.add(num);// 添加电话号码
+                }
+                PhoneNumsCursor.close();
+
+                //获取联系人所有邮箱.
+                ArrayList<String> emailsArray = new ArrayList<>();
+                Cursor emails = currentActivity.getContentResolver().query(
+                        ContactsContract.CommonDataKinds.Email.CONTENT_URI,
+                        null,
+                        ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = " + ID, null, null);
+
+                while (emails.moveToNext()) {
+                    String email = emails.getString(emails.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS));
+                    if (!email.isEmpty()) {
+                        emailsArray.add(email);
+                    }
+                }
+                if (emailsArray.size() > 0) {
+                    Log.i("emails", emailsArray.get(0));
+                }
+
+                emails.close();
+
+                ContactsPerson person = new ContactsPerson(ID, name, PhoneNums, emailsArray);
+                return person;
+            }
+        }
+        ContactsPerson person = new ContactsPerson();
+        return person;
+    }
+
     public static int getContactsPersonPositionInList(ContactsPerson p,ArrayList<ContactsPerson> persons)
     {
         int i=0;
@@ -222,4 +272,6 @@ public class ContactsUtils {
         }
         return i;
     }
+
+
 }
