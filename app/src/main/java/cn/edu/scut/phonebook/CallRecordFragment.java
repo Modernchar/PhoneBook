@@ -185,7 +185,8 @@ public class CallRecordFragment extends Fragment {
         T9_ResultLayout = currentActivity.findViewById(R.id.T9_ResultLayout);
 
         T9_ResultLayout.setVisibility(View.GONE);
-        T9_ShowBtn.setVisibility(View.GONE);
+        T9_ShowBtn.setVisibility(View.VISIBLE);
+        T9_LinearLayout.setVisibility(View.GONE);
     }
 
     public void setT9KeyListener()
