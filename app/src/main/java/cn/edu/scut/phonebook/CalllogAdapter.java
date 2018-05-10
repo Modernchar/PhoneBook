@@ -143,15 +143,23 @@ public class CalllogAdapter extends RecyclerView.Adapter<CalllogAdapter.ViewHold
             public void onClick(View view) {
                 int i = holder.getAdapterPosition();
                 String phone;
-                if(mCalllogList.get(i).getName()=="") {
-                    phone = mCalllogList.get(i).getNumber();
+                if(mCalllogList.get(i).getNumber()=="") {
+                    phone = mCalllogList.get(i).getName();
+                    Intent intent = new Intent(view.getContext(),CalllogSort.class);
+                    intent.putExtra("key",phone);
+                    view.getContext().startActivity(intent);
                 }
                 else {
-                    phone = mCalllogList.get(i).getName();
+                    ArrayList<ContactsPerson> persons = ContactsUtils.Persons;
+
+                    ContactsPerson person = ContactsUtils.findPersonByName(mCalllogList.get(i).getName(),persons);
+
+                    Intent intent = new Intent(view.getContext(),ContactsPersonCardActivity.class);
+                    intent.putExtra("ContactsPerson",person);
+                    view.getContext().startActivity(intent);
+
                 }
-                Intent intent = new Intent(view.getContext(),CalllogSort.class);
-                intent.putExtra("key",phone);
-                view.getContext().startActivity(intent);
+
             };
         });
         return holder;
@@ -178,20 +186,6 @@ public class CalllogAdapter extends RecyclerView.Adapter<CalllogAdapter.ViewHold
             holder.Location.setText(PhoneUtil.getGeo(num, 86));
             holder.Carrier.setText(PhoneUtil.getCarrier(num, 86));
             holder.Border.setVisibility(View.VISIBLE);
-
-            holder.more_inf.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    ArrayList<ContactsPerson> persons = ContactsUtils.getContactsPersonList(currentActivity);
-
-                    ContactsPerson person = ContactsUtils.findPersonByName(calllog.getName(),persons);
-
-                    Intent intent = new Intent(view.getContext(),ContactsPersonCardActivity.class);
-                    intent.putExtra("ContactsPerson",person);
-                    view.getContext().startActivity(intent);
-                };
-            });
         }
         else
         {
